@@ -1,3 +1,5 @@
+.worktree/
+
 # Godot 4+ specific ignores
 .godot/
 exports/
