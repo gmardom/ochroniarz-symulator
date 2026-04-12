@@ -1,0 +1,22 @@
+# Godot 4+ specific ignores
+.godot/
+exports/
+android/
+bin/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+jvm
+jre-arm64
+jre-amd64
+
+# Editor and languages
+.idea/
+.vscode/
+.kotlin/
+
+# Logs
+*.log

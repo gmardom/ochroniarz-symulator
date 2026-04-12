@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bp4eak0pu113p"]
+
+[ext_resource type="PackedScene" uid="uid://c6mx0dql6ayym" path="res://source/Player/Player.tscn" id="1_54pob"]
+
+[sub_resource type="Environment" id="Environment_o5qli"]
+ssr_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o5qli"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wfyh"]
+size = Vector3(20, 0, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o5qli"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_o5qli")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.7591464, 0.48587316, -0.43315592, -5.164152e-09, 0.6654519, 0.74644077, 0.65092, -0.5666578, 0.5051754, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_54pob")]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_o5qli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_0wfyh")
+
+[node name="Cube 1" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, -4.5)
+mesh = SubResource("BoxMesh_o5qli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube 1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube 1/StaticBody3D"]
+shape = SubResource("BoxShape3D_o5qli")
+
+[node name="Cube 2" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, -4.5)
+mesh = SubResource("BoxMesh_o5qli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube 2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube 2/StaticBody3D"]
+shape = SubResource("BoxShape3D_o5qli")

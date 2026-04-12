@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6mx0dql6ayym"]
+
+[ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player.gdj" id="1_p0vlq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tqv4n"]
+height = 1.82
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera")]
+script = ExtResource("1_p0vlq")
+neck = NodePath("Neck")
+camera = NodePath("Neck/Camera3D")
+mouse_sensitivity = 0.001
+metadata/_custom_type_script = "uid://ceteilad77rgr"
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+shape = SubResource("CapsuleShape3D_tqv4n")
