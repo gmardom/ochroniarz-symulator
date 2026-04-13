@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkcmhwnvxh7c6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cfofa"]
+size = Vector2(30, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5fc8"]
+size = Vector3(30, 0, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n5fc8"]
+size = Vector2(30, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d8bcj"]
+size = Vector3(30, 8, 0)
+
+[node name="Sklep" type="Node3D"]
+
+[node name="Podloga" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Podloga"]
+mesh = SubResource("PlaneMesh_cfofa")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Podloga"]
+shape = SubResource("BoxShape3D_n5fc8")
+
+[node name="Sciana1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 20)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana1"]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_n5fc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana1"]
+shape = SubResource("BoxShape3D_d8bcj")
+
+[node name="Sciana2" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 4, -20)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana2"]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_n5fc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
+shape = SubResource("BoxShape3D_d8bcj")

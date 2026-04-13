@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bp4eak0pu113p"]
 
 [ext_resource type="PackedScene" uid="uid://c6mx0dql6ayym" path="res://source/Player/Player.tscn" id="1_54pob"]
-[ext_resource type="PackedScene" uid="uid://dkcmhwnvxh7c6" path="res://source/Level/KULFON/sklep.tscn" id="2_tonrk"]
+[ext_resource type="PackedScene" uid="uid://dkcmhwnvxh7c6" path="res://source/Level/Sklep/Sklep.tscn" id="2_tonrk"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 ssr_enabled = true
