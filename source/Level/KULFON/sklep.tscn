@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkcmhwnvxh7c6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cfofa"]
+size = Vector2(30, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5fc8"]
+size = Vector3(30, 0, 40)
+
+[node name="Sklep" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_cfofa")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_n5fc8")
