@@ -42,3 +42,23 @@ mesh = SubResource("PlaneMesh_n5fc8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
 shape = SubResource("BoxShape3D_d8bcj")
+
+[node name="Sciana3" type="StaticBody3D" parent="."]
+transform = Transform3D(1.1924881e-08, 0, 1, 0, 1, 0, -1, 0, 1.1924881e-08, 15, 4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana3"]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_n5fc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana3"]
+shape = SubResource("BoxShape3D_d8bcj")
+
+[node name="Sciana4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15, 4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana4"]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_n5fc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana4"]
+shape = SubResource("BoxShape3D_d8bcj")
