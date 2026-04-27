@@ -22,6 +22,7 @@ transform = Transform3D(0.7591464, 0.48587316, -0.43315592, -5.164152e-09, 0.665
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_54pob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.444283, 0, 45.09017)
 
 [node name="Cube 1" type="CSGMesh3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, -4.5)

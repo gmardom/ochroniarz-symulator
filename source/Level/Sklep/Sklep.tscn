@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=14 format=3 uid="uid://dkcmhwnvxh7c6"]
+
+[ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cfofa"]
 size = Vector2(80, 120)
@@ -29,6 +31,12 @@ size = Vector2(8, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_srbli"]
 size = Vector3(8, 0, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5aeng"]
+size = Vector3(4, 0, 32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqvtp"]
+size = Vector3(4, 0, 32)
 
 [node name="Sklep" type="Node3D"]
 
@@ -105,3 +113,34 @@ mesh = SubResource("PlaneMesh_srbli")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PKr"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 23)
 shape = SubResource("BoxShape3D_srbli")
+
+[node name="Szafka" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 31)
+
+[node name="Szafka2" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 36)
+
+[node name="Szafka3" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 41)
+
+[node name="Szafka4" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 46)
+
+[node name="Szafka5" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 51)
+
+[node name="Szafka6" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 56)
+
+[node name="Szafka7" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 21, 0.05, 59)
+
+[node name="Sciankakaufowa1" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciankakaufowa1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, 44)
+mesh = SubResource("BoxMesh_5aeng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciankakaufowa1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, 44)
+shape = SubResource("BoxShape3D_vqvtp")
