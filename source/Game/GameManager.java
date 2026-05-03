@@ -148,6 +148,25 @@ public final class GameManager extends Node
         requireNonNull(getTree()).quit();
     }
 
+    public static boolean getFullscreen()
+    {
+        return DisplayServer.windowGetMode() == DisplayServer.WindowMode.FULLSCREEN;
+    }
+
+    public static void setFullscreen(boolean isFullscreen)
+    {
+        if (isFullscreen) {
+            DisplayServer.windowSetMode(DisplayServer.WindowMode.WINDOWED);
+        } else {
+            DisplayServer.windowSetMode(DisplayServer.WindowMode.FULLSCREEN);
+        }
+    }
+
+    public static void toggleFullscreen()
+    {
+        setFullscreen(getFullscreen());
+    }
+
     @SuppressWarnings("unchecked")
     private static <T extends Node> T loadScene(String path, Node root)
     {
