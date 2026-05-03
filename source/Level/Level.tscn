@@ -1,15 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp4eak0pu113p"]
+[gd_scene load_steps=5 format=3 uid="uid://bp4eak0pu113p"]
 
 [ext_resource type="PackedScene" uid="uid://c6mx0dql6ayym" path="res://source/Player/Player.tscn" id="1_54pob"]
 [ext_resource type="PackedScene" uid="uid://dkcmhwnvxh7c6" path="res://source/Level/Sklep/Sklep.tscn" id="2_tonrk"]
+[ext_resource type="PackedScene" uid="uid://bws341i6dt5vn" path="res://source/Enemy/Enemy.tscn" id="3_1es6e"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 ssr_enabled = true
 ssao_enabled = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_o5qli"]
 
 [node name="Level" type="Node3D"]
 
@@ -25,24 +22,16 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("1_54pob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.444283, 0, 45.09017)
 
-[node name="Cube 1" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, -4.5)
-visible = false
-mesh = SubResource("BoxMesh_o5qli")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube 1"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube 1/StaticBody3D"]
-shape = SubResource("BoxShape3D_o5qli")
-
-[node name="Cube 2" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, -4.5)
-visible = false
-mesh = SubResource("BoxMesh_o5qli")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube 2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube 2/StaticBody3D"]
-shape = SubResource("BoxShape3D_o5qli")
-
 [node name="Sklep" parent="." instance=ExtResource("2_tonrk")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_1es6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4863472, 0, -9)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_1es6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.58725, 0, 6)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_1es6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.38584, 0, -21.317837)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_1es6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.47687, 0, 56.819695)
