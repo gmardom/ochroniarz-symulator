@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://joyiqfq8dh1w" path="res://scripts/Menu/MenuMain.gdj" id="1_iyscu"]
 [ext_resource type="Texture2D" uid="uid://by1gduvcldn1l" path="res://source/Menu/Kulofon.png" id="2_4x6xi"]
+[ext_resource type="Script" uid="uid://bm8y5xo60ubat" path="res://scripts/Menu/AudioControl.gdj" id="3_j6h0d"]
 [ext_resource type="AudioStream" uid="uid://bk1kg7bgmnooi" path="res://source/Menu/Rasa Sayang - Saykoji ( Remix )  TikTok Version.mp3" id="3_l2jum"]
-[ext_resource type="Script" uid="uid://ddgdfmb07j2f6" path="res://source/Menu/audio_control.gd" id="3_xeqn1"]
-[ext_resource type="Script" uid="uid://bjrm7i11owhfi" path="res://source/Menu/fullscreen_control.gd" id="4_j6h0d"]
+[ext_resource type="Script" uid="uid://c4c7m261pjtnk" path="res://scripts/Menu/FullscreenControl.gdj" id="4_j6h0d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l2jum"]
 texture = ExtResource("2_4x6xi")
@@ -149,11 +149,10 @@ layout_mode = 0
 offset_left = 377.0
 offset_top = 79.0
 offset_right = 784.0
-offset_bottom = 101.0
-min_value = -80.0
-max_value = 0.0
-script = ExtResource("3_xeqn1")
+offset_bottom = 102.0
+script = ExtResource("3_j6h0d")
 audio_bus_name = "Music"
+metadata/_custom_type_script = "uid://bm8y5xo60ubat"
 
 [node name="FullscreenControl" type="CheckButton" parent="Settings"]
 layout_mode = 0
@@ -163,6 +162,7 @@ offset_right = 787.0
 offset_bottom = 126.0
 text = "Pełny ekran"
 script = ExtResource("4_j6h0d")
+metadata/_custom_type_script = "uid://c4c7m261pjtnk"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_l2jum")
