@@ -1,10 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ds5xqveqqey"]
+[gd_scene load_steps=4 format=3 uid="uid://c6ds5xqveqqey"]
 
 [ext_resource type="Script" uid="uid://c6wv8kom6305x" path="res://scripts/Menu/MenuPause.gdj" id="1_mvyxc"]
+[ext_resource type="Shader" uid="uid://bo2d512iao4ev" path="res://source/Menu/Blur.gdshader" id="2_dddqa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tmosi"]
+shader = ExtResource("2_dddqa")
+shader_parameter/blur_radius = 8
+shader_parameter/darkness = 0.1
+shader_parameter/tint_color = Color(0, 0, 0, 0)
+shader_parameter/blur_strength = 1.0
 
 [node name="MenuPause" type="CanvasLayer"]
 script = ExtResource("1_mvyxc")
 metadata/_custom_type_script = "uid://c6wv8kom6305x"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tmosi")
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.12156863)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8

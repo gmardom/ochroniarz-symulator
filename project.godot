@@ -22,6 +22,7 @@ GameManager="*res://scripts/GameManager.gdj"
 [display]
 
 window/size/resizable=false
+window/stretch/mode="canvas_items"
 
 [input]
 

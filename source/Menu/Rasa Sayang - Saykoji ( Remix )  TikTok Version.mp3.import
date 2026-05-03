@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bk1kg7bgmnooi"
+path="res://.godot/imported/Rasa Sayang - Saykoji ( Remix )  TikTok Version.mp3-8d7c3b9610612de5a5fdcb2efa171c78.mp3str"
+
+[deps]
+
+source_file="res://source/Menu/Rasa Sayang - Saykoji ( Remix )  TikTok Version.mp3"
+dest_files=["res://.godot/imported/Rasa Sayang - Saykoji ( Remix )  TikTok Version.mp3-8d7c3b9610612de5a5fdcb2efa171c78.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

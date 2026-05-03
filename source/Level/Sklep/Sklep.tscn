@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=18 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
 
@@ -16,6 +16,15 @@ size = Vector3(64, 8, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vqvtp"]
 size = Vector2(14, 8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5aeng"]
+points = PackedVector3Array(-7, 0, -4, -7, 0, 4, 7, 0, -4, 7, 0, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1fkmm"]
+size = Vector2(78, 8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w7lej"]
+points = PackedVector3Array(-39, 0, -4, -39, 0, 4, 39, 0, -4, 39, 0, 4)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6xqjh"]
 size = Vector2(8, 122)
@@ -81,16 +90,19 @@ shape = SubResource("BoxShape3D_d8bcj")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 33, 0, 30)
 mesh = SubResource("PlaneMesh_vqvtp")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sciana1"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 33, 0, 30)
+shape = SubResource("ConvexPolygonShape3D_5aeng")
+
 [node name="Sciana2" type="StaticBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1, 4, -32)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana2"]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, -2.6226833e-06, 0, 30)
-mesh = SubResource("PlaneMesh_n5fc8")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
+mesh = SubResource("PlaneMesh_1fkmm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6226833e-06, 0, 30)
-shape = SubResource("BoxShape3D_d8bcj")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
+shape = SubResource("ConvexPolygonShape3D_w7lej")
 
 [node name="Sciana3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -1)
