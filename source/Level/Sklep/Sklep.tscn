@@ -1,48 +1,71 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=18 format=3 uid="uid://dkcmhwnvxh7c6"]
+
+[ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cfofa"]
-size = Vector2(80, 120)
+size = Vector2(78, 122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n5fc8"]
-size = Vector3(80, 0, 120)
+size = Vector3(78, 0, 122)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_n5fc8"]
-size = Vector2(80, 8)
+size = Vector2(64, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8bcj"]
-size = Vector3(80, 8, 0)
+size = Vector3(64, 8, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vqvtp"]
+size = Vector2(14, 8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5aeng"]
+points = PackedVector3Array(-7, 0, -4, -7, 0, 4, 7, 0, -4, 7, 0, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1fkmm"]
+size = Vector2(78, 8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w7lej"]
+points = PackedVector3Array(-39, 0, -4, -39, 0, 4, 39, 0, -4, 39, 0, 4)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6xqjh"]
-size = Vector2(8, 120)
+size = Vector2(8, 122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xqjh"]
-size = Vector3(8, 0, 120)
+size = Vector3(8, 0, 122)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5aeng"]
-size = Vector2(8, 120)
+size = Vector2(8, 122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5aeng"]
-size = Vector3(8, 0, 120)
+size = Vector3(8, 0, 122)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_srbli"]
-size = Vector2(8, 6)
+size = Vector2(14, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_srbli"]
-size = Vector3(8, 0, 6)
+size = Vector3(14, 0, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5aeng"]
+size = Vector3(4, 0, 32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqvtp"]
+size = Vector3(4, 0, 32)
 
 [node name="Sklep" type="Node3D"]
 
 [node name="Podloga" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Podloga"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 mesh = SubResource("PlaneMesh_cfofa")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Podloga"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 shape = SubResource("BoxShape3D_n5fc8")
 
 [node name="Podloga2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Podloga2"]
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
@@ -56,26 +79,33 @@ shape = SubResource("BoxShape3D_n5fc8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 30)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana1"]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 30)
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, -6, 0, 30)
 mesh = SubResource("PlaneMesh_n5fc8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 30)
 shape = SubResource("BoxShape3D_d8bcj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Sciana1"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 33, 0, 30)
+mesh = SubResource("PlaneMesh_vqvtp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sciana1"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 33, 0, 30)
+shape = SubResource("ConvexPolygonShape3D_5aeng")
 
 [node name="Sciana2" type="StaticBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 4, -30)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana2"]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, -2.6226833e-06, 0, 30)
-mesh = SubResource("PlaneMesh_n5fc8")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
+mesh = SubResource("PlaneMesh_1fkmm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6226833e-06, 0, 30)
-shape = SubResource("BoxShape3D_d8bcj")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
+shape = SubResource("ConvexPolygonShape3D_w7lej")
 
 [node name="Sciana3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana3"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 15, 4, 0)
@@ -86,22 +116,606 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 15, 
 shape = SubResource("BoxShape3D_6xqjh")
 
 [node name="Sciana4" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana4"]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -15, 4, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -13, 4, 0)
 mesh = SubResource("PlaneMesh_5aeng")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana4"]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -15, 4, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -13, 4, 0)
 shape = SubResource("BoxShape3D_5aeng")
 
 [node name="PKr" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PKr"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 63)
 mesh = SubResource("PlaneMesh_srbli")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PKr"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 63)
 shape = SubResource("BoxShape3D_srbli")
+
+[node name="Szafka" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 31)
+
+[node name="Szafka2" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+
+[node name="Szafka20" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 8)
+
+[node name="Szafka23" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9073486e-06, 0, 8)
+
+[node name="Szafka35" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.722046e-06, 0, 16)
+
+[node name="Szafka41" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 24)
+
+[node name="Szafka61" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 24)
+
+[node name="Szafka62" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 24)
+
+[node name="Szafka63" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 24)
+
+[node name="Szafka64" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 24)
+
+[node name="Szafka43" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 32)
+
+[node name="Szafka69" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 32)
+
+[node name="Szafka70" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 32)
+
+[node name="Szafka71" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 32)
+
+[node name="Szafka72" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 32)
+
+[node name="Szafka45" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 40)
+
+[node name="Szafka77" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 40)
+
+[node name="Szafka78" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 40)
+
+[node name="Szafka79" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 40)
+
+[node name="Szafka80" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 40)
+
+[node name="Szafka47" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-06, 0, 48)
+
+[node name="Szafka85" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 48)
+
+[node name="Szafka86" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 48)
+
+[node name="Szafka87" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 48)
+
+[node name="Szafka88" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 48)
+
+[node name="Szafka49" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1444092e-05, 0, 56)
+
+[node name="Szafka89" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 56)
+
+[node name="Szafka90" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 56)
+
+[node name="Szafka91" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 56)
+
+[node name="Szafka92" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 56)
+
+[node name="Szafka36" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000057, 0, 16)
+
+[node name="Szafka37" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000006, 0, 16)
+
+[node name="Szafka38" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.000006, 0, 16)
+
+[node name="Szafka39" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 16)
+
+[node name="Szafka27" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000002, 0, 8)
+
+[node name="Szafka28" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.000002, 0, 8)
+
+[node name="Szafka29" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.000002, 0, 8)
+
+[node name="Szafka19" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.9073486e-06, 0, 6)
+
+[node name="Szafka30" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.6293945e-06, 0, 14.000003)
+
+[node name="Szafka40" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 22.000004)
+
+[node name="Szafka53" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 22.000004)
+
+[node name="Szafka58" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 22.000004)
+
+[node name="Szafka59" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 22.000004)
+
+[node name="Szafka60" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 22.000004)
+
+[node name="Szafka42" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 30.000004)
+
+[node name="Szafka65" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 30.000004)
+
+[node name="Szafka66" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 30.000004)
+
+[node name="Szafka67" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 30.000004)
+
+[node name="Szafka68" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 30.000004)
+
+[node name="Szafka44" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 38.000004)
+
+[node name="Szafka73" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 38.000004)
+
+[node name="Szafka74" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 38.000004)
+
+[node name="Szafka75" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 38.000004)
+
+[node name="Szafka76" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 38.000004)
+
+[node name="Szafka46" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.1444092e-05, 0, 46.000004)
+
+[node name="Szafka81" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 46.000004)
+
+[node name="Szafka82" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 46.000004)
+
+[node name="Szafka83" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 46.000004)
+
+[node name="Szafka84" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 46.000004)
+
+[node name="Szafka48" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.335144e-05, 0, 54.000004)
+
+[node name="Szafka51" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.9073486e-05, 0, 61.000008)
+
+[node name="Szafka52" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.000017, 0, 61.000008)
+
+[node name="Szafka54" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.000017, 0, 61.000008)
+
+[node name="Szafka55" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.000017, 0, 61.000008)
+
+[node name="Szafka56" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.000017, 0, 61.000008)
+
+[node name="Szafka57" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 25.000017, 0, 61.000008)
+
+[node name="Szafka50" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.335144e-05, 0, 54.000004)
+
+[node name="Szafka93" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000134, 0, 54.000004)
+
+[node name="Szafka94" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.000013, 0, 54.000004)
+
+[node name="Szafka95" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.000013, 0, 54.000004)
+
+[node name="Szafka96" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.000013, 0, 54.000004)
+
+[node name="Szafka31" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 14.000003)
+
+[node name="Szafka32" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 14.000003)
+
+[node name="Szafka33" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 14.000003)
+
+[node name="Szafka34" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 14.000004)
+
+[node name="Szafka21" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.9073486e-06, 0, 6)
+
+[node name="Szafka22" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.000002, 0, 6)
+
+[node name="Szafka24" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.000002, 0, 6)
+
+[node name="Szafka25" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.000002, 0, 6)
+
+[node name="Szafka26" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.000002, 0, 6)
+
+[node name="Szafka3" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000002, 0, 0)
+
+[node name="Szafka4" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.000002, 0, 0)
+
+[node name="Szafka5" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.000002, 0, 0)
+
+[node name="Szafka6" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.000002, 0, 0)
+
+[node name="Szafka7" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 28.000002, 0, 3.000002)
+
+[node name="Szafka8" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 8.000003)
+
+[node name="Szafka9" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 13.000003)
+
+[node name="Szafka10" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 18.000004)
+
+[node name="Szafka11" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 23.000006)
+
+[node name="Szafka12" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 28.000008)
+
+[node name="Szafka13" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 33.000008)
+
+[node name="Szafka14" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 38.000008)
+
+[node name="Szafka15" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 43.000008)
+
+[node name="Szafka16" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 48.000008)
+
+[node name="Szafka17" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 53.000008)
+
+[node name="Szafka18" parent="Szafka" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 58.000008)
+
+[node name="Szafka2" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, 11)
+
+[node name="Szafka2" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 0)
+
+[node name="Szafka35" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.722046e-06, 0, 16)
+
+[node name="Szafka41" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 24)
+
+[node name="Szafka61" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 24)
+
+[node name="Szafka62" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 24)
+
+[node name="Szafka63" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 24)
+
+[node name="Szafka64" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 24)
+
+[node name="Szafka43" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 32)
+
+[node name="Szafka69" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 32)
+
+[node name="Szafka70" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 32)
+
+[node name="Szafka71" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 32)
+
+[node name="Szafka72" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 32)
+
+[node name="Szafka45" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 0, 40)
+
+[node name="Szafka77" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 40)
+
+[node name="Szafka78" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 40)
+
+[node name="Szafka79" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 40)
+
+[node name="Szafka80" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 40)
+
+[node name="Szafka47" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-06, 0, 48)
+
+[node name="Szafka85" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 48)
+
+[node name="Szafka86" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 48)
+
+[node name="Szafka87" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 48)
+
+[node name="Szafka88" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 48)
+
+[node name="Szafka49" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1444092e-05, 0, 56)
+
+[node name="Szafka89" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000095, 0, 56)
+
+[node name="Szafka90" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.00001, 0, 56)
+
+[node name="Szafka91" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.00001, 0, 56)
+
+[node name="Szafka92" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 56)
+
+[node name="Szafka36" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0000057, 0, 16)
+
+[node name="Szafka37" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000006, 0, 16)
+
+[node name="Szafka38" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.000006, 0, 16)
+
+[node name="Szafka39" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.00001, 0, 16)
+
+[node name="Szafka30" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.6293945e-06, 0, 14.000003)
+
+[node name="Szafka40" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 22.000004)
+
+[node name="Szafka53" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 22.000004)
+
+[node name="Szafka58" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 22.000004)
+
+[node name="Szafka59" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 22.000004)
+
+[node name="Szafka60" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 22.000004)
+
+[node name="Szafka42" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 30.000004)
+
+[node name="Szafka65" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 30.000004)
+
+[node name="Szafka66" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 30.000004)
+
+[node name="Szafka67" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 30.000004)
+
+[node name="Szafka68" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 30.000004)
+
+[node name="Szafka44" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.536743e-06, 0, 38.000004)
+
+[node name="Szafka73" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 38.000004)
+
+[node name="Szafka74" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 38.000004)
+
+[node name="Szafka75" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 38.000004)
+
+[node name="Szafka76" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 38.000004)
+
+[node name="Szafka46" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.1444092e-05, 0, 46.000004)
+
+[node name="Szafka81" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 46.000004)
+
+[node name="Szafka82" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 46.000004)
+
+[node name="Szafka83" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 46.000004)
+
+[node name="Szafka84" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 46.000004)
+
+[node name="Szafka48" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.335144e-05, 0, 54.000004)
+
+[node name="Szafka51" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.9073486e-05, 0, 61.000008)
+
+[node name="Szafka52" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.000017, 0, 61.000008)
+
+[node name="Szafka54" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.000017, 0, 61.000008)
+
+[node name="Szafka55" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.000017, 0, 61.000008)
+
+[node name="Szafka56" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.000017, 0, 61.000008)
+
+[node name="Szafka57" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 25.000017, 0, 61.000008)
+
+[node name="Szafka50" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.335144e-05, 0, 54.000004)
+
+[node name="Szafka93" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000134, 0, 54.000004)
+
+[node name="Szafka94" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.000013, 0, 54.000004)
+
+[node name="Szafka95" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.000013, 0, 54.000004)
+
+[node name="Szafka96" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.000013, 0, 54.000004)
+
+[node name="Szafka31" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.0000095, 0, 14.000003)
+
+[node name="Szafka32" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.00001, 0, 14.000003)
+
+[node name="Szafka33" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.00001, 0, 14.000003)
+
+[node name="Szafka34" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20.00001, 0, 14.000004)
+
+[node name="Szafka3" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000002, 0, 0)
+
+[node name="Szafka4" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.000002, 0, 0)
+
+[node name="Szafka5" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.000002, 0, 0)
+
+[node name="Szafka6" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.000002, 0, 0)
+
+[node name="Szafka10" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 18.000004)
+
+[node name="Szafka11" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 23.000006)
+
+[node name="Szafka12" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 28.000008)
+
+[node name="Szafka13" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 33.000008)
+
+[node name="Szafka14" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 38.000008)
+
+[node name="Szafka15" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 43.000008)
+
+[node name="Szafka16" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 48.000008)
+
+[node name="Szafka17" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 53.000008)
+
+[node name="Szafka18" parent="Szafka2" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 58.000008)
+
+[node name="Szafka97" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, 15.999998)
+
+[node name="Szafka98" parent="Szafka97" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka99" parent="Szafka97/Szafka98" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka98" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -29.000002)
+
+[node name="Szafka98" parent="Szafka98" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka99" parent="Szafka98/Szafka98" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka99" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -44)
+
+[node name="Szafka98" parent="Szafka99" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka99" parent="Szafka99/Szafka98" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka100" parent="." instance=ExtResource("1_5aeng")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -59)
+
+[node name="Szafka98" parent="Szafka100" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Szafka99" parent="Szafka100/Szafka98" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Sciankakaufowa1" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sciankakaufowa1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, 44)
+mesh = SubResource("BoxMesh_5aeng")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Sciankakaufowa1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, -2)
+mesh = SubResource("BoxMesh_5aeng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sciankakaufowa1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, 44)
+shape = SubResource("BoxShape3D_vqvtp")

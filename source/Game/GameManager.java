@@ -55,20 +55,20 @@ public final class GameManager extends Node
     public void _ready()
     {
         switch (currentState) {
-            case Starting -> {
-                // NOTE: Currently doing nothing. Later show studio logo or something.
-                loadMenu();
-            }
-            case Menu -> {
-                loadMenu();
-            }
-            case Playing -> {
-                loadGame();
-            }
-            case Paused -> {
-                loadGame();
-                pauseGame();
-            }
+        case Starting -> {
+            // NOTE: Currently doing nothing. Later show studio logo or something.
+            loadMenu();
+        }
+        case Menu -> {
+            loadMenu();
+        }
+        case Playing -> {
+            loadGame();
+        }
+        case Paused -> {
+            loadGame();
+            pauseGame();
+        }
         }
     }
 
@@ -76,16 +76,16 @@ public final class GameManager extends Node
     public void _process(double delta)
     {
         switch (currentState) {
-            case Playing -> {
-                if (Input.isActionJustPressed("ui_cancel")) {
-                    pauseGame();
-                }
+        case Playing -> {
+            if (Input.isActionJustPressed("ui_cancel")) {
+                pauseGame();
             }
-            case Paused -> {
-                if (Input.isActionJustPressed("ui_cancel")) {
-                    unpauseGame();
-                }
+        }
+        case Paused -> {
+            if (Input.isActionJustPressed("ui_cancel")) {
+                unpauseGame();
             }
+        }
         }
     }
 
@@ -146,6 +146,25 @@ public final class GameManager extends Node
     public void exit()
     {
         requireNonNull(getTree()).quit();
+    }
+
+    public static boolean getFullscreen()
+    {
+        return DisplayServer.windowGetMode() == DisplayServer.WindowMode.FULLSCREEN;
+    }
+
+    public static void setFullscreen(boolean isFullscreen)
+    {
+        if (isFullscreen) {
+            DisplayServer.windowSetMode(DisplayServer.WindowMode.WINDOWED);
+        } else {
+            DisplayServer.windowSetMode(DisplayServer.WindowMode.FULLSCREEN);
+        }
+    }
+
+    public static void toggleFullscreen()
+    {
+        setFullscreen(getFullscreen());
     }
 
     @SuppressWarnings("unchecked")
