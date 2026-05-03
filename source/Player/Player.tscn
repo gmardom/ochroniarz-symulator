@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6mx0dql6ayym"]
+[gd_scene load_steps=4 format=3 uid="uid://c6mx0dql6ayym"]
 
-[ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player.gdj" id="1_p0vlq"]
+[ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player/Player.gdj" id="1_tqv4n"]
+[ext_resource type="Script" uid="uid://dmreec0t0wh53" path="res://scripts/Player/HeadsUpDisplay.gdj" id="2_q1qib"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tqv4n"]
 height = 1.82
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera")]
-script = ExtResource("1_p0vlq")
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast")]
+script = ExtResource("1_tqv4n")
 neck = NodePath("Neck")
 camera = NodePath("Neck/Camera3D")
 mouse_sensitivity = 0.001
+hud = NodePath("HeadsUpDisplay")
+interaction_ray_cast = NodePath("Neck/InteractionRayCast")
 metadata/_custom_type_script = "uid://ceteilad77rgr"
 
 [node name="Neck" type="Node3D" parent="."]
@@ -18,6 +21,47 @@ top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
+[node name="InteractionRayCast" type="RayCast3D" parent="Neck"]
+target_position = Vector3(0, 0, -2)
+collision_mask = 2
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
 shape = SubResource("CapsuleShape3D_tqv4n")
+
+[node name="HeadsUpDisplay" type="CanvasLayer" parent="." node_paths=PackedStringArray("crosshair", "interraction_text")]
+script = ExtResource("2_q1qib")
+crosshair = NodePath("Crosshair")
+interraction_text = NodePath("Crosshair/Label")
+metadata/_custom_type_script = "uid://dmreec0t0wh53"
+
+[node name="Crosshair" type="ColorRect" parent="HeadsUpDisplay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = -1.5
+offset_right = 1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+
+[node name="Label" type="Label" parent="HeadsUpDisplay/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.5
+offset_top = 18.5
+offset_right = 71.5
+offset_bottom = 41.500004
+grow_horizontal = 2
+grow_vertical = 2
+text = "F)"
+horizontal_alignment = 1

@@ -32,6 +32,10 @@ public class Player extends CharacterBody3D
     @RegisterProperty @Export public float runFovModifier = 1.15f;
     private float base_fov = 0f; // Set in editor in camera
 
+    @RegisterProperty @Export public HeadsUpDisplay hud;
+    @RegisterProperty @Export public RayCast3D interactionRayCast;
+    private boolean interactionRayCastHit = false;
+
     @RegisterFunction
     public void _ready()
     {
@@ -43,8 +47,7 @@ public class Player extends CharacterBody3D
         fallGravity = (2 * jumpHeight) / pow(jumpFallTime, 2);
         jumpVelocity = jumpGravity * jumpPeakTime;
 
-        // Hide mouse cursor
-        //Input.setMouseMode(Input.MouseMode.CAPTURED);
+        if (hud != null) hud.stopInteraction();
     }
 
     @RegisterFunction
@@ -125,5 +128,19 @@ public class Player extends CharacterBody3D
         // Finally apply velocity
         setVelocity(velocity);
         moveAndSlide();
+
+        // Check interaction raycast
+        if (interactionRayCast != null && interactionRayCast.isColliding()) {
+            interactionRayCastHit = true;
+            // TODO: Detect and adjust interaction text
+            if (hud != null) hud.startInteraction("Ukaraj");
+            var collider = (Node3D) interactionRayCast.getCollider();
+            if (Input.isActionPressed("interact")) {
+                collider.queueFree();
+            }
+        } else {
+            interactionRayCastHit = false;
+            if (hud != null) hud.stopInteraction();
+        }
     }
 }
