@@ -5,6 +5,7 @@
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 ssr_enabled = true
+ssao_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
 
