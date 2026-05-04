@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6ds5xqveqqey"]
+[gd_scene load_steps=14 format=3 uid="uid://c6ds5xqveqqey"]
 
 [ext_resource type="Script" uid="uid://c6wv8kom6305x" path="res://scripts/Menu/MenuPause.gdj" id="1_mvyxc"]
 [ext_resource type="Shader" uid="uid://bo2d512iao4ev" path="res://source/Menu/Blur.gdshader" id="2_dddqa"]
+[ext_resource type="Script" uid="uid://bm8y5xo60ubat" path="res://scripts/Menu/AudioControl.gdj" id="3_8os8c"]
+[ext_resource type="Script" uid="uid://c4c7m261pjtnk" path="res://scripts/Menu/FullscreenControl.gdj" id="4_u6o4a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tmosi"]
 shader = ExtResource("2_dddqa")
@@ -9,6 +11,52 @@ shader_parameter/blur_radius = 8
 shader_parameter/darkness = 0.1
 shader_parameter/tint_color = Color(0, 0, 0, 0)
 shader_parameter/blur_strength = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s53t"]
+bg_color = Color(0.7529412, 0.03529412, 0.019607844, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f0er"]
+bg_color = Color(0.35007012, 0.0065510073, 0.0036386247, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gh1x5"]
+bg_color = Color(0.5623246, 0.017790185, 0.009880377, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgmkx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcqal"]
+bg_color = Color(0.7529412, 0.03529412, 0.019607844, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujg6c"]
+bg_color = Color(0.35007012, 0.0065510073, 0.0036386247, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ea3en"]
+bg_color = Color(0.5623246, 0.017790185, 0.009880377, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u8b7m"]
 
 [node name="MenuPause" type="CanvasLayer"]
 script = ExtResource("1_mvyxc")
@@ -20,7 +68,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.12156863)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainButtons" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -33,13 +81,96 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
+[node name="BackButton" type="Button" parent="MainButtons"]
 layout_mode = 2
 text = "Powrót do gry"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="MainButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_1s53t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3f0er")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gh1x5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pgmkx")
+text = "Ustawienia"
+
+[node name="QuitButton" type="Button" parent="MainButtons"]
 layout_mode = 2
 text = "Wyjście do menu"
 
-[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="Settings" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -565.0
+offset_top = 114.0
+offset_right = 565.0
+offset_bottom = 311.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -79.75
+offset_right = 239.0
+offset_bottom = 9.25
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ustawienia"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="Settings"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 126.0
+offset_right = 801.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_rcqal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ujg6c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ea3en")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u8b7m")
+text = "Wyjście"
+
+[node name="AudioControl" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 377.0
+offset_top = 79.0
+offset_right = 784.0
+offset_bottom = 102.0
+script = ExtResource("3_8os8c")
+audio_bus_name = "Music"
+metadata/_custom_type_script = "uid://bm8y5xo60ubat"
+
+[node name="FullscreenControl" type="CheckButton" parent="Settings"]
+layout_mode = 0
+offset_left = 386.0
+offset_top = 95.0
+offset_right = 787.0
+offset_bottom = 126.0
+text = "Pełny ekran"
+script = ExtResource("4_u6o4a")
+metadata/_custom_type_script = "uid://c4c7m261pjtnk"
+
+[connection signal="pressed" from="MainButtons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MainButtons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainButtons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Settings/BackButton" to="." method="_on_back_settings_button_pressed"]
+[connection signal="value_changed" from="Settings/AudioControl" to="Settings/AudioControl" method="_on_value_changed"]
+[connection signal="toggled" from="Settings/FullscreenControl" to="Settings/FullscreenControl" method="_on_toggled"]

@@ -1,7 +1,6 @@
 package Menu;
 
 import Game.*;
-
 import godot.annotation.*;
 import godot.api.VBoxContainer;
 import godot.api.Panel;
