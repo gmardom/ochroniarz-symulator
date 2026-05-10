@@ -35,7 +35,8 @@ properties = [
 	fov_change_speed,
 	run_fov_modifier,
 	hud,
-	interaction_ray_cast
+	interaction_ray_cast,
+	weapon_animation_player
 ]
 functions = [
     _process,

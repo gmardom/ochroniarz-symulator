@@ -1,18 +1,132 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6mx0dql6ayym"]
+[gd_scene load_steps=10 format=3 uid="uid://c6mx0dql6ayym"]
 
 [ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player/Player.gdj" id="1_tqv4n"]
 [ext_resource type="Script" uid="uid://dmreec0t0wh53" path="res://scripts/Player/HeadsUpDisplay.gdj" id="2_q1qib"]
 
+[sub_resource type="Animation" id="Animation_q1qib"]
+resource_name = "Attack"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Model")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Model")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array()
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Model:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667, 0.5994627, 0.67179054, 0.7992836),
+"transitions": PackedFloat32Array(1, 2.3784142, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.17453292, 0, 0), Vector3(-1.2217305, 1.3962634, 0), Vector3(-1.3561208, 1.3962634, 0), Vector3(0.34906584, 0.86219263, -0.13439035), Vector3(-1.4137167, -0.51487213, 0), Vector3(-0.9843657, -0.93375117, 0), Vector3(-0.2268928, -0.51487213, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Model:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.5994627, 0.7992836),
+"transitions": PackedFloat32Array(1, 3.0314324, 0.9330329, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.45, 0.7, 0), Vector3(0.45, 0.78, 0), Vector3(-0.56, 0.31, -0.205), Vector3(-1.09, -0.04, 0.055)]
+}
+
+[sub_resource type="Animation" id="Animation_ip85u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.17453292, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qa6en"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.17453292, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa6en"]
+_data = {
+&"Attack": SubResource("Animation_q1qib"),
+&"Idle": SubResource("Animation_qa6en"),
+&"RESET": SubResource("Animation_ip85u")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa6en"]
+albedo_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+roughness = 0.36
+use_z_clip_scale = true
+z_clip_scale = 0.83
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_60cbu"]
+material = SubResource("StandardMaterial3D_qa6en")
+radius = 0.05
+height = 0.8
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tqv4n"]
 height = 1.82
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast", "weapon_animation_player")]
 script = ExtResource("1_tqv4n")
 neck = NodePath("Neck")
 camera = NodePath("Neck/Camera3D")
 mouse_sensitivity = 0.001
 hud = NodePath("HeadsUpDisplay")
 interaction_ray_cast = NodePath("Neck/InteractionRayCast")
+weapon_animation_player = NodePath("Neck/Weapon/AnimationPlayer")
 metadata/_custom_type_script = "uid://ceteilad77rgr"
 
 [node name="Neck" type="Node3D" parent="."]
@@ -24,6 +138,22 @@ top_level = true
 [node name="InteractionRayCast" type="RayCast3D" parent="Neck"]
 target_position = Vector3(0, 0, -2)
 collision_mask = 2
+
+[node name="Weapon" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48848748, -0.6, -0.6437373)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Neck/Weapon"]
+libraries = {
+&"": SubResource("AnimationLibrary_qa6en")
+}
+
+[node name="Model" type="Node3D" parent="Neck/Weapon"]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Weapon/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("CapsuleMesh_60cbu")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
