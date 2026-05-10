@@ -1,6 +1,7 @@
 package Player;
 
 import Game.*;
+import Enemy.*;
 import godot.annotation.*;
 import godot.api.*;
 import godot.core.*;
@@ -37,6 +38,9 @@ public class Player extends CharacterBody3D
 	@RegisterProperty @Export public RayCast3D interactionRayCast;
 	private boolean interactionRayCastHit = false;
 
+	@RegisterProperty @Export public AnimationPlayer weaponAnimationPlayer;
+	private boolean attacking = false;
+
 	@RegisterFunction
 	public void _ready()
 	{
@@ -49,12 +53,17 @@ public class Player extends CharacterBody3D
 		jumpVelocity = jumpGravity * jumpPeakTime;
 
 		if (hud != null) hud.stopInteraction();
+		
+		if (weaponAnimationPlayer != null) {
+			weaponAnimationPlayer.stop();
+			weaponAnimationPlayer.play("Idle");
+		}
 	}
 
 	@RegisterFunction
 	public void _unhandledInput(InputEvent event)
 	{
-		if (event instanceof InputEventMouseMotion ev) { // && Input.getMouseMode() == Input.MouseMode.CAPTURED) {
+		if (event instanceof InputEventMouseMotion ev) {
 			// Rotate player left and right
 			rotateY((float) -ev.getRelative().getX() * mouseSensitivity);
 			// Rotate neck up and down
@@ -77,6 +86,20 @@ public class Player extends CharacterBody3D
 			var position = getPosition();
 			position.setY(position.getY() + eyeLevel);
 			neck.setPosition(lerp(neck.getPosition(), position, delta * CAMERA_SMOOTHNESS));
+		}
+
+		if (Input.isActionJustPressed("attack")) {
+			if (weaponAnimationPlayer != null) {
+				weaponAnimationPlayer.stop();
+				weaponAnimationPlayer.play("Attack");
+				weaponAnimationPlayer.queue("Idle");
+			}
+			if (interactionRayCast != null && interactionRayCast.isColliding()) {
+				var collider = interactionRayCast.getCollider();
+				if (collider instanceof Enemy enemy) {
+					enemy.damage(20);
+				}
+			}
 		}
 	}
 

@@ -21,8 +21,9 @@ signals = [
     
 ]
 properties = [
-    
+    health
 ]
 functions = [
-    _ready
+    _process,
+	_ready
 ]
