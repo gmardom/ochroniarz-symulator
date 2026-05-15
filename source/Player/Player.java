@@ -156,13 +156,27 @@ public class Player extends CharacterBody3D
 		moveAndSlide();
 
 		// Check interaction raycast
-		if (interactionRayCast != null && interactionRayCast.isColliding()) {
+		/*if (interactionRayCast != null && interactionRayCast.isColliding()) {
 			interactionRayCastHit = true;
 			// TODO: Detect and adjust interaction text
 			if (hud != null) hud.startInteraction("Ukaraj");
 			var collider = (Node3D) interactionRayCast.getCollider();
 			if (Input.isActionPressed("interact")) {
 				collider.queueFree();
+			}
+		} else {
+			interactionRayCastHit = false;
+			if (hud != null) hud.stopInteraction();
+		}*/
+		// Check interaction raycast
+		if (interactionRayCast != null && interactionRayCast.isColliding()) {
+			interactionRayCastHit = true;
+			if (hud != null) hud.startInteraction("Interakcja");
+			var collider = interactionRayCast.getCollider();
+			if (Input.isActionJustPressed("interact")) { // isActionJustPressed zamiast isActionPressed
+				if (collider instanceof Node node) {
+					node.callDeferred("interact"); // Wywołuje interact() zamiast queueFree()
+				}
 			}
 		} else {
 			interactionRayCastHit = false;
