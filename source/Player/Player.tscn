@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6mx0dql6ayym"]
+[gd_scene load_steps=11 format=3 uid="uid://c6mx0dql6ayym"]
 
 [ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player/Player.gdj" id="1_tqv4n"]
+[ext_resource type="Script" uid="uid://igrtwhp5t4gb" path="res://source/Player/Raycast.java" id="2_ip85u"]
 [ext_resource type="Script" uid="uid://dmreec0t0wh53" path="res://scripts/Player/HeadsUpDisplay.gdj" id="2_q1qib"]
 
 [sub_resource type="Animation" id="Animation_q1qib"]
@@ -44,33 +45,6 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.45, 0.7, 0), Vector3(0.45, 0.78, 0), Vector3(-0.56, 0.31, -0.205), Vector3(-1.09, -0.04, 0.055)]
 }
 
-[sub_resource type="Animation" id="Animation_ip85u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.17453292, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Model:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_qa6en"]
 resource_name = "Idle"
 tracks/0/type = "value"
@@ -96,6 +70,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.17453292, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ip85u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.17453292, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qa6en"]
@@ -135,13 +136,10 @@ top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
-[node name="InteractionRayCast" type="RayCast3D" parent="Neck"]
+[node name="InteractionRayCast" type="RayCast3D" parent="Neck" node_paths=PackedStringArray("hud")]
 target_position = Vector3(0, 0, -2)
-<<<<<<< Updated upstream
-collision_mask = 2
-=======
 script = ExtResource("2_ip85u")
->>>>>>> Stashed changes
+hud = NodePath("../../HeadsUpDisplay")
 
 [node name="Weapon" type="Node3D" parent="Neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48848748, -0.6, -0.6437373)
@@ -152,11 +150,7 @@ libraries = {
 }
 
 [node name="Model" type="Node3D" parent="Neck/Weapon"]
-<<<<<<< Updated upstream
-transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0, 0)
-=======
 transform = Transform3D(1, 0, 0, 0, 0.98480755, 0.17364815, 0, -0.17364815, 0.98480755, 0, 0, 0)
->>>>>>> Stashed changes
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Weapon/Model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)

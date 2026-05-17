@@ -167,7 +167,7 @@ public class Player extends CharacterBody3D
 		} else {
 			interactionRayCastHit = false;
 			if (hud != null) hud.stopInteraction();
-		}*/
+		}
 		// Check interaction raycast
 		if (interactionRayCast != null && interactionRayCast.isColliding()) {
 			interactionRayCastHit = true;
@@ -181,6 +181,6 @@ public class Player extends CharacterBody3D
 		} else {
 			interactionRayCastHit = false;
 			if (hud != null) hud.stopInteraction();
-		}
+		}*/
 	}
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=20 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
+[ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi.tscn" id="2_srbli"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -723,3 +724,6 @@ mesh = SubResource("BoxMesh_5aeng")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciankakaufowa1"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 25, 2, 44)
 shape = SubResource("BoxShape3D_vqvtp")
+
+[node name="Drzwi" parent="." instance=ExtResource("2_srbli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 50)
