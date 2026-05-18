@@ -7,15 +7,15 @@ import Game.*;
 @RegisterClass
 public class FullscreenControl extends CheckButton
 {
-    @RegisterFunction
-    public void _ready()
-    {
-        setPressed(GameManager.getFullscreen());
-    }
+	@RegisterFunction
+	public void _ready()
+	{
+		setPressed(GameManager.getFullscreen());
+	}
 
-    @RegisterFunction
-    public void _onToggled(boolean toggledOn)
-    {
-        GameManager.setFullscreen(toggledOn == false);
-    }
+	@RegisterFunction
+	public void _onToggled(boolean toggledOn)
+	{
+		GameManager.setFullscreen(toggledOn == false);
+	}
 }
