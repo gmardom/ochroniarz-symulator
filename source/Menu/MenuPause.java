@@ -1,47 +1,46 @@
-package Menu;
+package Menu; // Deklaracja pakietu Menu
 
-import Game.*;
-import godot.api.*;
-import godot.annotation.*;
+import Game.*; // Import klas z pakietu Game (np. GameManager)
+import godot.api.*; // Import klas API Godot (VBoxContainer, Panel itp.)
+import godot.annotation.*; // Import adnotacji Godot
 
-@RegisterClass
-public class MenuPause extends Menu
+@RegisterClass // Rejestruje klasę jako klasę Godot widoczną w edytorze
+public class MenuPause extends Menu // Menu pauzy dziedziczy po klasie Menu
 {
-	private VBoxContainer mainButtons;
-	private Panel settings;
+	private VBoxContainer mainButtons; // Kontener z głównymi przyciskami menu pauzy
+	private Panel settings; // Panel ustawień (ukryty domyślnie)
 
 	@RegisterFunction
-	public void _ready()
+	public void _ready() // Wywoływane przy starcie – inicjalizuje elementy UI
 	{
-		mainButtons = (VBoxContainer) getNode("MainButtons");
-		settings = (Panel) getNode("Settings");
-
-		mainButtons.setVisible(true);
-		settings.setVisible(false);
-	}
-	
-	@RegisterFunction
-	public void _onBackButtonPressed()
-	{
-		GameManager.I().unpauseGame();
-	}
-	
-	@RegisterFunction
-	public void _onSettingsButtonPressed()
-	{
-		mainButtons.setVisible(false);
-		settings.setVisible(true);
+		mainButtons = (VBoxContainer) getNode("MainButtons"); // Pobiera węzeł z przyciskami po nazwie
+		settings = (Panel) getNode("Settings"); // Pobiera panel ustawień po nazwie
+		mainButtons.setVisible(true); // Pokazuje główne przyciski
+		settings.setVisible(false); // Ukrywa panel ustawień
 	}
 
 	@RegisterFunction
-	public void _onQuitButtonPressed()
+	public void _onBackButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Wróć"
 	{
-		GameManager.I().loadMenu();
+		GameManager.I().unpauseGame(); // Wznawia grę przez GameManager
 	}
-	
+
 	@RegisterFunction
-	public void _onBackSettingsButtonPressed()
+	public void _onSettingsButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Ustawienia"
 	{
-		_ready();
+		mainButtons.setVisible(false); // Ukrywa główne przyciski
+		settings.setVisible(true); // Pokazuje panel ustawień
+	}
+
+	@RegisterFunction
+	public void _onQuitButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Wyjdź"
+	{
+		GameManager.I().loadMenu(); // Wraca do menu głównego przez GameManager
+	}
+
+	@RegisterFunction
+	public void _onBackSettingsButtonPressed() // Wywoływane gdy gracz kliknie "Wróć" w ustawieniach
+	{
+		_ready(); // Resetuje UI do stanu początkowego (pokazuje przyciski, ukrywa ustawienia)
 	}
 }

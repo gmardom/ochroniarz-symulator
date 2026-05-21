@@ -1,179 +1,173 @@
-package Game;
+package Game; // Deklaracja pakietu Game
 
-import Menu.*;
-import Transition.*;
+import Menu.*; // Import klas z pakietu Menu
+import Transition.*; // Import klas z pakietu Transition
+import godot.annotation.*; // Import adnotacji Godot
+import godot.api.*; // Import klas API Godot
+import godot.global.GD; // Import globalnych metod Godot (np. load)
+import static java.util.Objects.requireNonNull; // Import metody requireNonNull do sprawdzania null
 
-import godot.annotation.*;
-import godot.api.*;
-import godot.global.GD;
-
-import static java.util.Objects.requireNonNull;
-
-@RegisterClass
-public final class GameManager extends Node
+@RegisterClass // Rejestruje klasę jako klasę Godot
+public final class GameManager extends Node // Singleton zarządzający stanem gry, dziedziczy po Node
 {
-	// Global instance for easy access from code
-	private static GameManager I = null;
-	public static GameManager I() { return I; }
+	// Globalna instancja singletona – dostępna z każdego miejsca w kodzie
+	private static GameManager I = null; // Przechowuje jedyną instancję GameManager
+	public static GameManager I() { return I; } // Zwraca globalną instancję GameManager
 
-	// Global state
-	public Node gameRoot;
-	public TransitionPlayer transition;
+	// Globalne referencje do węzłów sceny
+	public Node gameRoot; // Korzeń sceny gry (/root/Game)
+	public TransitionPlayer transition; // Węzeł obsługujący animacje przejść między scenami
 
-	// Loaded scenes
-	public MenuMain mainMenu;
-	public MenuPause menuPause;
-	public Node3D gameLevel;
+	// Załadowane sceny
+	public MenuMain mainMenu; // Scena głównego menu
+	public MenuPause menuPause; // Scena menu pauzy
+	public Node3D gameLevel; // Scena poziomu gry
 
-	// Program state
+	// Enum definiujący możliwe stany gry
 	public enum State
 	{
-		Nil,
-		Starting,
-		Menu,
-		Playing,
-		Paused,
+		Nil, // Stan niezainicjowany
+		Starting, // Gra się uruchamia
+		Menu, // Gracz jest w menu głównym
+		Playing, // Gracz aktywnie gra
+		Paused, // Gra jest wstrzymana
 	};
-	public State initialState = State.Starting;
-	public State currentState = State.Nil;
+
+	public State initialState = State.Starting; // Stan początkowy przy uruchomieniu
+	public State currentState = State.Nil; // Aktualny stan gry
 
 	@RegisterFunction
-	public void _enterTree()
+	public void _enterTree() // Wywołuje się gdy węzeł wchodzi do drzewa sceny (przed _ready)
 	{
-		// Setup global instance
-		I = this;
+		I = this; // Ustawia globalną instancję singletona na ten obiekt
 
-		// Gather and create necessary resources
-		gameRoot = getNode("/root/Game");
-		transition = loadScene("res://source/Transition/TransitionPlayer.tscn", this);
+		// Pobiera i tworzy niezbędne zasoby
+		gameRoot = getNode("/root/Game"); // Pobiera korzeń sceny gry po ścieżce
+		transition = loadScene("res://source/Transition/TransitionPlayer.tscn", this); // Ładuje i dodaje węzeł przejść jako dziecko
 
-		// Finish loading
-		currentState = initialState;
+		currentState = initialState; // Ustawia aktualny stan na stan początkowy
 	}
 
 	@RegisterFunction
-	public void _ready()
+	public void _ready() // Wywołuje się gdy węzeł i wszystkie dzieci są gotowe
 	{
-		switch (currentState) {
-		case Starting -> {
-			// NOTE: Currently doing nothing. Later show studio logo or something.
-			loadMenu();
+		switch (currentState) { // Sprawdza stan początkowy i wykonuje odpowiednią akcję
+		case Starting -> { // Jeśli gra się właśnie uruchamia
+			// NOTE: Obecnie nic nie robi. Później można pokazać logo studia itp.
+			loadMenu(); // Ładuje menu główne
 		}
-		case Menu -> {
-			loadMenu();
+		case Menu -> { // Jeśli stan to menu
+			loadMenu(); // Ładuje menu główne
 		}
-		case Playing -> {
-			loadGame();
+		case Playing -> { // Jeśli stan to gra
+			loadGame(); // Ładuje poziom gry
 		}
-		case Paused -> {
-			loadGame();
-			pauseGame();
+		case Paused -> { // Jeśli stan to pauza
+			loadGame(); // Ładuje poziom gry
+			pauseGame(); // Natychmiast wstrzymuje grę
 		}
 		}
 	}
 
 	@RegisterFunction
-	public void _process(double delta)
+	public void _process(double delta) // Wywoływany co klatkę
 	{
-		switch (currentState) {
-		case Playing -> {
-			if (Input.isActionJustPressed("ui_cancel")) {
-				pauseGame();
+		switch (currentState) { // Obsługuje wejście zależnie od stanu gry
+		case Playing -> { // Podczas gry
+			if (Input.isActionJustPressed("ui_cancel")) { // Jeśli wciśnięto Escape
+				pauseGame(); // Wstrzymuje grę
 			}
 		}
-		case Paused -> {
-			if (Input.isActionJustPressed("ui_cancel")) {
-				unpauseGame();
+		case Paused -> { // Podczas pauzy
+			if (Input.isActionJustPressed("ui_cancel")) { // Jeśli wciśnięto Escape
+				unpauseGame(); // Wznawia grę
 			}
 		}
 		}
 	}
 
-	public void loadMenu()
+	public void loadMenu() // Ładuje i pokazuje menu główne, usuwa scenę gry
 	{
-		currentState = State.Menu;
-		transition.in();
+		currentState = State.Menu; // Ustawia stan na Menu
+		transition.in(); // Odtwarza animację wejścia przejścia (zakrywa ekran)
 		{
-			// Load menu
-			if (mainMenu == null) mainMenu = loadScene("res://source/Menu/MenuMain.tscn", gameRoot);
-			if (mainMenu != null) mainMenu.setVisible(true);
+			// Ładuje menu
+			if (mainMenu == null) mainMenu = loadScene("res://source/Menu/MenuMain.tscn", gameRoot); // Ładuje scenę menu jeśli nie istnieje
+			if (mainMenu != null) mainMenu.setVisible(true); // Pokazuje menu główne
 
-			// Unload game
-			if (gameLevel != null) gameLevel.queueFree();
-			gameLevel = null;
-			if (menuPause != null) menuPause.queueFree();
-			menuPause = null;
+			// Usuwa scenę gry
+			if (gameLevel != null) gameLevel.queueFree(); // Usuwa poziom gry z pamięci
+			gameLevel = null; // Zeruje referencję do poziomu
+			if (menuPause != null) menuPause.queueFree(); // Usuwa menu pauzy z pamięci
+			menuPause = null; // Zeruje referencję do menu pauzy
 
-			// Make cursor visible
-			Input.setMouseMode(Input.MouseMode.VISIBLE);
+			Input.setMouseMode(Input.MouseMode.VISIBLE); // Pokazuje kursor myszy
 		}
-		transition.out();
+		transition.out(); // Odtwarza animację wyjścia przejścia (odkrywa ekran)
 	}
 
-	public void loadGame()
+	public void loadGame() // Ładuje scenę gry i ukrywa menu
 	{
-		currentState = State.Playing;
-		transition.in();
+		currentState = State.Playing; // Ustawia stan na Playing
+		transition.in(); // Odtwarza animację wejścia przejścia
 		{
-			// Hide the main menu
-			if (mainMenu != null) mainMenu.setVisible(false);
+			if (mainMenu != null) mainMenu.setVisible(false); // Ukrywa menu główne
 
-			// Load the game scenes and assets
-			if (gameLevel == null) gameLevel = loadScene("res://source/Level/Level.tscn", gameRoot);
-			if (menuPause == null) menuPause = loadScene("res://source/Menu/MenuPause.tscn", gameRoot);
-			if (menuPause != null) menuPause.setVisible(false);
+			// Ładuje sceny gry jeśli nie istnieją
+			if (gameLevel == null) gameLevel = loadScene("res://source/Level/Level.tscn", gameRoot); // Ładuje scenę poziomu
+			if (menuPause == null) menuPause = loadScene("res://source/Menu/MenuPause.tscn", gameRoot); // Ładuje scenę menu pauzy
+			if (menuPause != null) menuPause.setVisible(false); // Ukrywa menu pauzy
 
-			// Hide the cursor
-			Input.setMouseMode(Input.MouseMode.CAPTURED);
+			Input.setMouseMode(Input.MouseMode.CAPTURED); // Ukrywa i blokuje kursor myszy
 		}
-		transition.out();
+		transition.out(); // Odtwarza animację wyjścia przejścia
 	}
 
-	public void pauseGame()
+	public void pauseGame() // Wstrzymuje grę i pokazuje menu pauzy
 	{
-		currentState = State.Paused;
-		if (menuPause != null) menuPause.setVisible(true);
-		Input.setMouseMode(Input.MouseMode.VISIBLE);
+		currentState = State.Paused; // Ustawia stan na Paused
+		if (menuPause != null) menuPause.setVisible(true); // Pokazuje menu pauzy
+		Input.setMouseMode(Input.MouseMode.VISIBLE); // Pokazuje kursor myszy
 	}
 
-	public void unpauseGame()
+	public void unpauseGame() // Wznawia grę i ukrywa menu pauzy
 	{
-		currentState = State.Playing;
-		if (menuPause != null) menuPause.setVisible(false);
-		Input.setMouseMode(Input.MouseMode.CAPTURED);
+		currentState = State.Playing; // Ustawia stan na Playing
+		if (menuPause != null) menuPause.setVisible(false); // Ukrywa menu pauzy
+		Input.setMouseMode(Input.MouseMode.CAPTURED); // Ukrywa i blokuje kursor myszy
 	}
 
-	public void exit()
+	public void exit() // Zamyka aplikację
 	{
-		requireNonNull(getTree()).quit();
+		requireNonNull(getTree()).quit(); // Pobiera drzewo sceny (rzuca wyjątek jeśli null) i zamyka grę
 	}
 
-	public static boolean getFullscreen()
+	public static boolean getFullscreen() // Zwraca true jeśli gra jest w trybie pełnoekranowym
 	{
-		return DisplayServer.windowGetMode() == DisplayServer.WindowMode.FULLSCREEN;
+		return DisplayServer.windowGetMode() == DisplayServer.WindowMode.FULLSCREEN; // Porównuje aktualny tryb okna z pełnoekranowym
 	}
 
-	public static void setFullscreen(boolean isFullscreen)
+	public static void setFullscreen(boolean isFullscreen) // Ustawia tryb okna na pełnoekranowy lub okienkowy
 	{
-		if (isFullscreen) {
-			DisplayServer.windowSetMode(DisplayServer.WindowMode.WINDOWED);
-		} else {
-			DisplayServer.windowSetMode(DisplayServer.WindowMode.FULLSCREEN);
+		if (isFullscreen) { // Jeśli ma być pełnoekranowy
+			DisplayServer.windowSetMode(DisplayServer.WindowMode.WINDOWED); // Przełącza na tryb okienkowy
+		} else { // Jeśli ma być okienkowy
+			DisplayServer.windowSetMode(DisplayServer.WindowMode.FULLSCREEN); // Przełącza na tryb pełnoekranowy
 		}
 	}
 
-	public static void toggleFullscreen()
+	public static void toggleFullscreen() // Przełącza między trybem pełnoekranowym a okienkowym
 	{
-		setFullscreen(getFullscreen());
+		setFullscreen(getFullscreen()); // Wywołuje setFullscreen z aktualnym stanem (odwraca tryb)
 	}
 
-	@SuppressWarnings("unchecked")
-	private static <T extends Node> T loadScene(String path, Node root)
+	@SuppressWarnings("unchecked") // Wycisza ostrzeżenie o niezweryfikowanym rzutowaniu generycznym
+	private static <T extends Node> T loadScene(String path, Node root) // Ładuje scenę z pliku i dodaje jako dziecko węzła root
 	{
-		var scene = (PackedScene) GD.load(path);
-		assert scene != null;
-		var instance = scene.instantiate();
-		root.addChild(instance);
-		return (T) instance;
+		var scene = (PackedScene) GD.load(path); // Ładuje plik sceny (.tscn) z podanej ścieżki
+		assert scene != null; // Sprawdza czy scena została załadowana (tylko w trybie debug)
+		var instance = scene.instantiate(); // Tworzy instancję załadowanej sceny
+		root.addChild(instance); // Dodaje instancję jako dziecko węzła root
+		return (T) instance; // Zwraca instancję rzutowaną na oczekiwany typ
 	}
 }

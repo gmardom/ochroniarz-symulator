@@ -11,16 +11,16 @@ size = Vector3(0.1, 2.1, 0.1)
 points = PackedVector3Array(-0.05, -1.05, -0.05, -0.05, -1.05, 0.05, -0.05, 1.05, -0.05, 0.05, -1.05, -0.05, 0.05, -1.05, 0.05, -0.05, 1.05, 0.05, 0.05, 1.05, -0.05, 0.05, 1.05, 0.05)
 
 [sub_resource type="BoxMesh" id="BoxMesh_j8owl"]
-size = Vector3(1, 0.1, 0.1)
+size = Vector3(1.2, 0.1, 0.1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cgx2m"]
-points = PackedVector3Array(0.5, 0.05, 0.05, 0.5, 0.05, -0.05, -0.5, 0.05, 0.05, 0.5, -0.05, 0.05, 0.5, -0.05, -0.05, -0.5, 0.05, -0.05, -0.5, -0.05, 0.05, -0.5, -0.05, -0.05)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d3jgh"]
+points = PackedVector3Array(0.6, 0.05, 0.05, 0.6, 0.05, -0.05, -0.6, 0.05, 0.05, 0.6, -0.05, 0.05, 0.6, -0.05, -0.05, -0.6, 0.05, -0.05, -0.6, -0.05, 0.05, -0.6, -0.05, -0.05)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cgx2m"]
-size = Vector3(1, 2, 0.05)
+size = Vector3(1.2, 2, 0.05)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j8owl"]
-points = PackedVector3Array(-0.5, -1, -0.025, -0.5, -1, 0.025, -0.5, 1, -0.025, 0.5, -1, -0.025, 0.5, -1, 0.025, -0.5, 1, 0.025, 0.5, 1, -0.025, 0.5, 1, 0.025)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vr4mo"]
+points = PackedVector3Array(-0.6, -1, -0.025, -0.6, -1, 0.025, -0.6, 1, -0.025, 0.6, -1, -0.025, 0.6, -1, 0.025, -0.6, 1, 0.025, 0.6, 1, -0.025, 0.6, 1, 0.025)
 
 [sub_resource type="Animation" id="Animation_vr4mo"]
 length = 0.001
@@ -77,28 +77,29 @@ _data = {
 [node name="Drzwi" type="Node3D"]
 
 [node name="Zawias" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Zawias"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 1.05, 0)
 mesh = SubResource("BoxMesh_17epy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Zawias"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 1.05, 0)
 shape = SubResource("ConvexPolygonShape3D_17epy")
 
 [node name="Zawias2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Zawias2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 1.05, 0)
 mesh = SubResource("BoxMesh_17epy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Zawias2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 1.05, 0)
 shape = SubResource("ConvexPolygonShape3D_17epy")
 
 [node name="Zawias3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 2, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Zawias3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0)
@@ -106,7 +107,7 @@ mesh = SubResource("BoxMesh_j8owl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Zawias3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0)
-shape = SubResource("ConvexPolygonShape3D_cgx2m")
+shape = SubResource("ConvexPolygonShape3D_d3jgh")
 
 [node name="HingeJoint3D" type="HingeJoint3D" parent="."]
 transform = Transform3D(0.9998024, 0.01987799, -8.6889457e-10, 0, -4.371139e-08, -1, -0.01987799, 0.9998024, -4.370275e-08, 0, 1, 0)
@@ -121,18 +122,18 @@ script = ExtResource("1_vr4mo")
 animation_player = NodePath("../../AnimationPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HingeJoint3D/Drzwi"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999952, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09988344, 1, 0)
 material_override = ExtResource("1_cgx2m")
-mesh = SubResource("BoxMesh_cgx2m")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="HingeJoint3D/Drzwi"]
-transform = Transform3D(0.075430535, 0, 0, 0, 0.10026715, 0, 0, 0, 2.3490438, 0.4130593, 1, 0)
-material_override = ExtResource("2_vr4mo")
 mesh = SubResource("BoxMesh_cgx2m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HingeJoint3D/Drzwi"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999952, 1, 0)
-shape = SubResource("ConvexPolygonShape3D_j8owl")
+shape = SubResource("ConvexPolygonShape3D_vr4mo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="HingeJoint3D/Drzwi"]
+transform = Transform3D(0.075430535, 0, 0, 0, 0.10026715, 0, 1.1641532e-10, 0, 2.3490438, 0.52221596, 1, 0.0021702442)
+material_override = ExtResource("2_vr4mo")
+mesh = SubResource("BoxMesh_cgx2m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
