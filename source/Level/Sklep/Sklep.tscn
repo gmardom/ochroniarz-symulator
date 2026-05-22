@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=31 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
 [ext_resource type="PackedScene" uid="uid://djh628rh2vxb" path="res://source/Level/Rzeczy/Kasa/cash_register.glb" id="3_vqvtp"]
+[ext_resource type="PackedScene" uid="uid://3ou676g0d6gv" path="res://source/Level/Rzeczy/lodowa/food_shop_showcase.glb" id="4_1fkmm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -729,31 +730,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.000002, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.000002, 0, 0)
 
 [node name="Szafka10" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 18.000004)
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 28.000002, 0, 18.000004)
 
-[node name="Szafka11" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 23.000006)
+[node name="Szafka11" parent="Szafka2/Szafka10" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000001, 0, 0)
 
-[node name="Szafka12" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 28.000008)
+[node name="Szafka12" parent="Szafka2/Szafka10/Szafka11" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000003, 0, -1.9073486e-06)
 
-[node name="Szafka13" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 33.000008)
+[node name="Szafka13" parent="Szafka2/Szafka10/Szafka11/Szafka12" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000002, 0, 1.9073486e-06)
 
-[node name="Szafka14" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 38.000008)
+[node name="Szafka14" parent="Szafka2/Szafka10/Szafka11/Szafka12/Szafka13" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -1.9073486e-06)
 
-[node name="Szafka15" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 43.000008)
+[node name="Szafka16" parent="Szafka2/Szafka10/Szafka11/Szafka12/Szafka13/Szafka14" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1.9073486e-06)
 
-[node name="Szafka16" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 48.000008)
+[node name="Szafka17" parent="Szafka2/Szafka10/Szafka11/Szafka12/Szafka13/Szafka14/Szafka16" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.000001, 0, 0)
 
-[node name="Szafka17" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 53.000008)
-
-[node name="Szafka18" parent="Szafka2" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 28.000002, 0, 58.000008)
+[node name="Szafka18" parent="Szafka2/Szafka10/Szafka11/Szafka12/Szafka13/Szafka14/Szafka16/Szafka17" instance=ExtResource("1_5aeng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.9073486e-06)
 
 [node name="Szafka97" parent="." instance=ExtResource("1_5aeng")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, 15.999998)
@@ -765,30 +763,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
 [node name="Szafka98" parent="." instance=ExtResource("1_5aeng")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -29.000002)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 0.05, -33)
 
 [node name="Szafka98" parent="Szafka98" instance=ExtResource("1_5aeng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
 [node name="Szafka99" parent="Szafka98/Szafka98" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="Szafka99" parent="." instance=ExtResource("1_5aeng")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -44)
-
-[node name="Szafka98" parent="Szafka99" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="Szafka99" parent="Szafka99/Szafka98" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="Szafka100" parent="." instance=ExtResource("1_5aeng")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -37, 0.05, -59)
-
-[node name="Szafka98" parent="Szafka100" instance=ExtResource("1_5aeng")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-
-[node name="Szafka99" parent="Szafka100/Szafka98" instance=ExtResource("1_5aeng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 
 [node name="Sciankakaufowa1" type="StaticBody3D" parent="."]
@@ -808,5 +788,140 @@ shape = SubResource("BoxShape3D_vqvtp")
 [node name="Drzwi" parent="." instance=ExtResource("2_srbli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4, 0, 60)
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_vqvtp")]
+[node name="Kasa" parent="." instance=ExtResource("3_vqvtp")]
 transform = Transform3D(1.348191, 0, 0.6575567, 0, 1.5, 0, -0.6575567, 0, 1.348191, 22, 1.85, -33)
+
+[node name="Lodowa" parent="." instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -34, 3, -61.8)
+
+[node name="Lodowa2" parent="Lodowa" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa3" parent="Lodowa/Lodowa2" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa4" parent="Lodowa/Lodowa2/Lodowa3" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa5" parent="Lodowa/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714293, 0, 0)
+
+[node name="Lodowa6" parent="Lodowa/Lodowa2/Lodowa3/Lodowa4/Lodowa5" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa/Lodowa2/Lodowa3/Lodowa4/Lodowa5/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa3" parent="." instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-1.4, 0, -1.2239188e-07, 0, 1.4, 0, 1.2239188e-07, 0, -1.4, 0.9655347, 3, -18.8)
+
+[node name="Lodowa2" parent="Lodowa3" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa3" parent="Lodowa3/Lodowa2" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa4" parent="Lodowa3/Lodowa2/Lodowa3" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa5" parent="Lodowa3/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714293, 0, 0)
+
+[node name="Lodowa4" parent="Lodowa3/Lodowa2" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, -5.714, 0, 10.135716)
+
+[node name="Lodowa4" parent="Lodowa3/Lodowa2/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa5" parent="Lodowa3/Lodowa2/Lodowa4/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714293, 0, 0)
+
+[node name="Lodowa2" parent="." instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08, -38, 3, -19)
+
+[node name="Lodowa2" parent="Lodowa2" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa3" parent="Lodowa2/Lodowa2" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa4" parent="Lodowa2/Lodowa2/Lodowa3" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa5" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714293, 0, 0)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa5" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa5/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa8" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa5/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1428566, 0, 0)
+
+[node name="Lodowa9" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa5/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.714283, 0, 0)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7142754, 0, 7.8571434)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa6/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa8" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7142754, 0, 14.285714)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa8" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa8/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa10" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7142754, 0, 20)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa10" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa10/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 12.857132, 0, 7.8571434)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa7" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa7/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa9" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 12.857132, 0, 14.285715)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa9" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa9/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa11" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 12.857132, 0, 20)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa11" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa11/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa12" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 12.857132, 0, 25.714287)
+
+[node name="Lodowa6" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa12" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
+
+[node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa12/Lodowa6" instance=ExtResource("4_1fkmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
