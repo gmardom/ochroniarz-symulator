@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://cygvcs1k32gi3"]
 
-[ext_resource type="Material" uid="uid://bqwpmikan5uj6" path="res://source/Level/Rzeczy/Drzwi.tres" id="1_cgx2m"]
-[ext_resource type="Script" uid="uid://dci1opl7m2kyd" path="res://source/Level/Rzeczy/Drzwi.java" id="1_vr4mo"]
-[ext_resource type="Material" uid="uid://dxk11736lwasa" path="res://source/Level/Rzeczy/klamka.tres" id="2_vr4mo"]
+[ext_resource type="Material" uid="uid://bqwpmikan5uj6" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tres" id="1_cgx2m"]
+[ext_resource type="Script" uid="uid://dgqf31m8f56qw" path="res://source/Level/Rzeczy/Drzwi/Drzwi.java" id="1_vr4mo"]
+[ext_resource type="Material" uid="uid://dxk11736lwasa" path="res://source/Level/Rzeczy/Drzwi/klamka.tres" id="2_vr4mo"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_17epy"]
 size = Vector3(0.1, 2.1, 0.1)
