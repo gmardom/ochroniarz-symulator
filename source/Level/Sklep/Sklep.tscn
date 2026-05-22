@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=30 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
+[ext_resource type="PackedScene" uid="uid://djh628rh2vxb" path="res://source/Level/Rzeczy/Kasa/cash_register.glb" id="3_vqvtp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -806,3 +807,6 @@ shape = SubResource("BoxShape3D_vqvtp")
 
 [node name="Drzwi" parent="." instance=ExtResource("2_srbli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4, 0, 60)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_vqvtp")]
+transform = Transform3D(1.348191, 0, 0.6575567, 0, 1.5, 0, -0.6575567, 0, 1.348191, 22, 1.85, -33)
