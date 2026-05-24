@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://dkcmhwnvxh7c6"]
 
-[ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/szafka.tscn" id="1_5aeng"]
+[ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/Szafka/szafka.tscn" id="1_5aeng"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
 [ext_resource type="PackedScene" uid="uid://djh628rh2vxb" path="res://source/Level/Rzeczy/Kasa/cash_register.glb" id="3_vqvtp"]
 [ext_resource type="PackedScene" uid="uid://3ou676g0d6gv" path="res://source/Level/Rzeczy/lodowa/food_shop_showcase.glb" id="4_1fkmm"]
