@@ -79,25 +79,26 @@ public class Player extends CharacterBody3D
 	@RegisterFunction
 	public void _process(double delta)
 	{
-		final float CAMERA_SMOOTHNESS = 50f;
+		final float CAMERA_SMOOTHNESS = 50f; // Stałość wygładzania ruchu kamery (im wyżej, tym szybciej podąża)
 
-		// Smoothly move neck
-		if (neck != null) {
-			var position = getPosition();
-			position.setY(position.getY() + eyeLevel);
-			neck.setPosition(lerp(neck.getPosition(), position, delta * CAMERA_SMOOTHNESS));
+	// Płynnie przesuń szyję (neck) za pozycją gracza
+		if (neck != null) { // Sprawdza czy węzeł szyi jest przypisany
+			var position = getPosition(); // Pobiera aktualną pozycję gracza
+			position.setY(position.getY() + eyeLevel); // Przesuwa pozycję w górę o wysokość oczu
+			neck.setPosition(lerp(neck.getPosition(), position, delta * CAMERA_SMOOTHNESS)); // Płynnie interpoluje pozycję szyi do docelowej
 		}
 
-		if (Input.isActionJustPressed("attack")) {
-			if (weaponAnimationPlayer != null) {
-				weaponAnimationPlayer.stop();
-				weaponAnimationPlayer.play("Attack");
-				weaponAnimationPlayer.queue("Idle");
-			}
-			if (interactionRayCast != null && interactionRayCast.isColliding()) {
-				var collider = interactionRayCast.getCollider();
-				if (collider instanceof Enemy enemy) {
-					enemy.damage(20);
+		if (Input.isActionJustPressed("attack")) { // Sprawdza czy gracz właśnie wcisnął przycisk ataku
+			if (weaponAnimationPlayer != null && !weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) { // Sprawdza czy AnimationPlayer broni jest przypisany i czy animacja ataku nie jest aktualnie odtwarzana
+				weaponAnimationPlayer.stop(); // Zatrzymuje aktualnie odtwarzaną animację
+				weaponAnimationPlayer.play("Attack"); // Odtwarza animację ataku
+				weaponAnimationPlayer.queue("Idle"); // Kolejkuje animację spoczynku po zakończeniu ataku
+
+				if (interactionRayCast != null && interactionRayCast.isColliding()) { // Sprawdza czy promień raycast trafił w coś
+					var collider = interactionRayCast.getCollider(); // Pobiera obiekt trafiony przez raycast
+					if (collider instanceof Enemy enemy) { // Sprawdza czy trafiony obiekt jest wrogiem
+						enemy.damage(20); // Zadaje 20 obrażeń trafionemu wrogowi
+					}
 				}
 			}
 		}
