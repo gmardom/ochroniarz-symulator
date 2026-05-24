@@ -37,6 +37,15 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Sketchfab_model/f773f372d711448aa3b3515d9f39993e_fbx/RootNode/socle_001/socle_001_blue_steal_0": {
+"generate/physics": true
+},
+"PATH:Sketchfab_model/f773f372d711448aa3b3515d9f39993e_fbx/RootNode/tall_003/tall_003_black_arma_0": {
+"generate/physics": true
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
