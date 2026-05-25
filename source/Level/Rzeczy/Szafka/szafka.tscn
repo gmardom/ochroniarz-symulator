@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://od3hnfqhsojb"]
+[gd_scene load_steps=10 format=3 uid="uid://od3hnfqhsojb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sl886"]
 size = Vector3(4, 0.1, 1)
@@ -6,13 +6,22 @@ size = Vector3(4, 0.1, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kdc2h"]
 points = PackedVector3Array(-2, -0.05, -0.5, -2, 0.05, -0.5, 2, -0.05, -0.5, -2, -0.05, 0.5, -2, 0.05, 0.5, 2, 0.05, -0.5, 2, -0.05, 0.5, 2, 0.05, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4nbt"]
+albedo_color = Color(0.99864906, 0.99999994, 0.9035774, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_2eose"]
+material = SubResource("StandardMaterial3D_w4nbt")
 size = Vector3(4, 3, 0.1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hxeuj"]
 points = PackedVector3Array(2, 1.5, 0.05, 2, 1.5, -0.05, -2, 1.5, 0.05, 2, -1.5, 0.05, 2, -1.5, -0.05, -2, 1.5, -0.05, -2, -1.5, 0.05, -2, -1.5, -0.05)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbb48"]
+albedo_color = Color(0.45452422, 0.45452428, 0.45452422, 1)
+metallic_specular = 1.0
+
 [sub_resource type="BoxMesh" id="BoxMesh_66wrj"]
+material = SubResource("StandardMaterial3D_fbb48")
 size = Vector3(0.2, 3.2, 0.2)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_olu8s"]
