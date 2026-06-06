@@ -136,10 +136,9 @@ top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
-[node name="InteractionRayCast" type="RayCast3D" parent="Neck" node_paths=PackedStringArray("hud")]
+[node name="InteractionRayCast" type="RayCast3D" parent="Neck"]
 target_position = Vector3(0, 0, -2)
 script = ExtResource("2_ip85u")
-hud = NodePath("../../HeadsUpDisplay")
 
 [node name="Weapon" type="Node3D" parent="Neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48848748, -0.6, -0.6437373)
@@ -150,7 +149,7 @@ libraries = {
 }
 
 [node name="Model" type="Node3D" parent="Neck/Weapon"]
-transform = Transform3D(1, 0, 0, 0, 0.9848075, 0.17364813, 0, -0.17364813, 0.9848075, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.98480743, 0.17364813, 0, -0.17364813, 0.98480743, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Weapon/Model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
@@ -161,8 +160,11 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
 shape = SubResource("CapsuleShape3D_tqv4n")
 
-[node name="HeadsUpDisplay" type="CanvasLayer" parent="."]
+[node name="HeadsUpDisplay" type="CanvasLayer" parent="." node_paths=PackedStringArray("crosshair", "clock_label", "shift_summary_panel")]
 script = ExtResource("2_q1qib")
+crosshair = NodePath("Crosshair")
+clock_label = NodePath("ClockLabel")
+shift_summary_panel = NodePath("ShiftSummaryPanel")
 metadata/_custom_type_script = "uid://dmreec0t0wh53"
 
 [node name="Crosshair" type="ColorRect" parent="HeadsUpDisplay"]
@@ -195,3 +197,23 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "F)"
 horizontal_alignment = 1
+
+[node name="ClockLabel" type="Label" parent="HeadsUpDisplay"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="ShiftSummaryPanel" type="Panel" parent="HeadsUpDisplay"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SummaryText" type="Panel" parent="HeadsUpDisplay/ShiftSummaryPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

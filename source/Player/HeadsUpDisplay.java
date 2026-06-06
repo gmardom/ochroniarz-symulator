@@ -1,32 +1,58 @@
-package Player; // Deklaracja pakietu Player
+package Player;
 
-import godot.annotation.*; // Import adnotacji Godot
-import godot.api.*; // Import klas API Godot (CanvasLayer, Label itp.)
-import godot.core.*; // Import typów rdzeniowych Godot
+import godot.annotation.*;
+import godot.api.*;
 
-@RegisterClass // Rejestruje klasę jako klasę Godot widoczną w edytorze
-public class HeadsUpDisplay extends CanvasLayer // HUD dziedziczy po CanvasLayer (warstwa UI rysowana na ekranie)
+@RegisterClass
+public class HeadsUpDisplay extends CanvasLayer
 {
-	@RegisterProperty @Export public CanvasItem crosshair; // Celownik – element UI widoczny w edytorze
-	@RegisterProperty @Export public Label interractionText; // Etykieta tekstowa podpowiedzi interakcji
+	@RegisterProperty @Export public CanvasItem crosshair;
+	@RegisterProperty @Export public Label interractionText;
+	@RegisterProperty @Export public Label clockLabel;
+	@RegisterProperty @Export public Control shiftSummaryPanel;
+
+	private Label summaryText;
 
 	@RegisterFunction
-	public void _ready() {} // Wywoływane przy starcie – brak akcji inicjalizacyjnych
-
-	public void startInteraction(String text) // Włącza tryb interakcji: pokazuje celownik i tekst
+	public void _ready()
 	{
-		if (crosshair != null) { // Jeśli celownik istnieje
-			crosshair.setVisible(true); // Pokazuje celownik
-		}
-		if (interractionText != null) { // Jeśli etykieta tekstowa istnieje
-			interractionText.setText("F) " + text); // Ustawia tekst z prefiksem klawisza akcji "F)"
-			interractionText.setVisible(true); // Pokazuje etykietę
+		if (crosshair != null) crosshair.setVisible(true);
+		if (shiftSummaryPanel != null) shiftSummaryPanel.setVisible(false);
+		summaryText = (Label) getNode("ShiftSummaryPanel/SummaryText");
+	}
+
+	public void startInteraction(String text)
+	{
+		if (interractionText != null) {
+			interractionText.setText("F) " + text);
+			interractionText.setVisible(true);
 		}
 	}
 
-	public void stopInteraction() // Wyłącza tryb interakcji: ukrywa celownik i tekst
+	public void stopInteraction()
 	{
-		if (crosshair != null) crosshair.setVisible(false); // Ukrywa celownik (jeśli istnieje)
-		if (interractionText != null) interractionText.setVisible(false); // Ukrywa tekst interakcji (jeśli istnieje)
+		if (interractionText != null) interractionText.setVisible(false);
+	}
+
+	public void updateClock(int hour)
+	{
+		if (clockLabel != null)
+			clockLabel.setText(hour + ":00");
+	}
+
+	public void showShiftSummary(int caught, int robbed)
+	{
+		if (shiftSummaryPanel != null) shiftSummaryPanel.setVisible(true);
+		if (summaryText != null)
+			summaryText.setText(
+				"Koniec zmiany!\n" +
+				"Zlapani zlodzieje: " + caught + "\n" +
+				"Okradzeni klienci: " + robbed
+			);
+	}
+
+	public void hideShiftSummary()
+	{
+		if (shiftSummaryPanel != null) shiftSummaryPanel.setVisible(false);
 	}
 }

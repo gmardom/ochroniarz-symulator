@@ -6,7 +6,7 @@ fqName = Menu.MenuMain
 relativeSourcePath = source/Menu/MenuMain.java
 baseType = CanvasLayer
 supertypes = [
-	Menu.Menu,
+    Menu.Menu,
 	godot.api.CanvasLayer,
 	godot.api.Node,
 	godot.api.Object,
@@ -16,13 +16,13 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-	
+    
 ]
 properties = [
-	
+    
 ]
 functions = [
-	_ready,
+    _ready,
 	_on_start_button_pressed,
 	_on_settings_button_pressed,
 	_on_quit_button_pressed,
