@@ -1,10 +1,12 @@
-[gd_scene load_steps=32 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=34 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/Szafka/szafka.tscn" id="1_5aeng"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
 [ext_resource type="PackedScene" uid="uid://djh628rh2vxb" path="res://source/Level/Rzeczy/Kasa/cash_register.glb" id="3_vqvtp"]
 [ext_resource type="PackedScene" uid="uid://3ou676g0d6gv" path="res://source/Level/Rzeczy/lodowa/food_shop_showcase.glb" id="4_1fkmm"]
 [ext_resource type="PackedScene" uid="uid://cbb62a0at5t62" path="res://source/Level/Rzeczy/Beds/mattress.glb" id="5_w7lej"]
+[ext_resource type="PackedScene" uid="uid://bh6hlsjosrll1" path="res://source/Level/Rzeczy/Desk/desk.glb" id="6_sx23t"]
+[ext_resource type="PackedScene" uid="uid://cgsw0kq7clrft" path="res://source/Level/Rzeczy/PC/psx_dirty_old_pc.glb" id="7_5rcug"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -927,5 +929,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
 [node name="Lodowa7" parent="Lodowa2/Lodowa2/Lodowa3/Lodowa4/Lodowa12/Lodowa6" instance=ExtResource("4_1fkmm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5714283, 0, 0)
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("5_w7lej")]
+[node name="Bed" parent="." instance=ExtResource("5_w7lej")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.2, 66)
+
+[node name="Desk" parent="." instance=ExtResource("6_sx23t")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39, 0, 64)
+
+[node name="PC" parent="." instance=ExtResource("7_5rcug")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.17217, 1.0636866, 64)
