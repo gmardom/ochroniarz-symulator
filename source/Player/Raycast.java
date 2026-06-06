@@ -1,5 +1,6 @@
 package Player; // Deklaracja pakietu Player
 
+import Game.*;
 import godot.annotation.*; // Import adnotacji Godot
 import godot.api.*; // Import klas API Godot (RayCast3D, Node itp.)
 import godot.core.*; // Import typów rdzeniowych Godot

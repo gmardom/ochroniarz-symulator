@@ -99,6 +99,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_4x6xi")
 text = "Wyjście"
 
 [node name="Settings" type="Panel" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -169,9 +170,54 @@ stream = ExtResource("3_l2jum")
 autoplay = true
 bus = &"Music"
 
+[node name="GameSelect" type="VBoxContainer" parent="."]
+offset_left = 365.0
+offset_top = 438.0
+offset_right = 816.0
+offset_bottom = 635.0
+
+[node name="NewGameButton" type="Button" parent="GameSelect"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_l2jum")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xeqn1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j6h0d")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4x6xi")
+text = "Nowa Gra"
+
+[node name="LoadGameButton" type="Button" parent="GameSelect"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_l2jum")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xeqn1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j6h0d")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4x6xi")
+text = "Wycztaj Gre"
+
+[node name="BackGameSelectButton" type="Button" parent="GameSelect"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_l2jum")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xeqn1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j6h0d")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4x6xi")
+text = "Wyjście"
+
 [connection signal="pressed" from="MainButtons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainButtons/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MainButtons/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Settings/BackButton" to="." method="_on_back_settings_button_pressed"]
 [connection signal="value_changed" from="Settings/AudioControl" to="Settings/AudioControl" method="_on_value_changed"]
 [connection signal="toggled" from="Settings/FullscreenControl" to="Settings/FullscreenControl" method="_on_toggled"]
+[connection signal="pressed" from="GameSelect/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="GameSelect/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="GameSelect/BackGameSelectButton" to="." method="_on_back_game_select_button_pressed"]

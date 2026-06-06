@@ -1,47 +1,80 @@
-package Menu; // Deklaracja pakietu Menu
+package Menu;
 
-import Game.*; // Import klas z pakietu Game (np. GameManager)
-import godot.annotation.*; // Import adnotacji Godot
-import godot.api.VBoxContainer; // Import klasy kontenera przycisków
-import godot.api.Panel; // Import klasy panelu UI
+import Game.*;
+import godot.annotation.*;
+import godot.api.VBoxContainer;
+import godot.api.Panel;
 
-@RegisterClass // Rejestruje klasę jako klasę Godot widoczną w edytorze
-public class MenuMain extends Menu // Główne menu dziedziczy po klasie Menu
+@RegisterClass
+public class MenuMain extends Menu
 {
-	private VBoxContainer mainButtons; // Kontener z głównymi przyciskami menu
-	private Panel settings; // Panel ustawień (ukryty domyślnie)
+	private VBoxContainer mainButtons;
+	private Panel settings;
+	private VBoxContainer gameSelect; // Nowy panel wyboru trybu gry
 
 	@RegisterFunction
-	public void _ready() // Wywoływane przy starcie – inicjalizuje elementy UI
+	public void _ready()
 	{
-		mainButtons = (VBoxContainer) getNode("MainButtons"); // Pobiera węzeł z przyciskami po nazwie
-		settings = (Panel) getNode("Settings"); // Pobiera panel ustawień po nazwie
-		mainButtons.setVisible(true); // Pokazuje główne przyciski
-		settings.setVisible(false); // Ukrywa panel ustawień
+		mainButtons = (VBoxContainer) getNode("MainButtons");
+		settings    = (Panel) getNode("Settings");
+		gameSelect  = (VBoxContainer) getNode("GameSelect"); // Pobierz nowy panel
+
+		mainButtons.setVisible(true);
+		settings.setVisible(false);
+		gameSelect.setVisible(false); // Domyślnie ukryty
+	}
+
+	// --- MainButtons ---
+
+	@RegisterFunction
+	public void _onStartButtonPressed()
+	{
+		// Zamiast od razu ładować grę, pokaż panel wyboru
+		mainButtons.setVisible(false);
+		gameSelect.setVisible(true);
 	}
 
 	@RegisterFunction
-	public void _onStartButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Start"
+	public void _onSettingsButtonPressed()
 	{
-		GameManager.I().loadGame(); // Ładuje grę przez GameManager
+		mainButtons.setVisible(false);
+		settings.setVisible(true);
 	}
 
 	@RegisterFunction
-	public void _onSettingsButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Ustawienia"
+	public void _onQuitButtonPressed()
 	{
-		mainButtons.setVisible(false); // Ukrywa główne przyciski
-		settings.setVisible(true); // Pokazuje panel ustawień
+		GameManager.I().exit();
+	}
+
+	// --- Settings ---
+
+	@RegisterFunction
+	public void _onBackSettingsButtonPressed()
+	{
+		_ready(); // Reset do stanu początkowego
+	}
+
+	// --- GameSelect ---
+
+	@RegisterFunction
+	public void _onNewGameButtonPressed()
+	{
+		GameManager.I().loadGame(); // Nowa gra — bez slotu
 	}
 
 	@RegisterFunction
-	public void _onQuitButtonPressed() // Wywoływane gdy gracz kliknie przycisk "Wyjdź"
+	public void _onLoadGameButtonPressed()
 	{
-		GameManager.I().exit(); // Zamyka aplikację przez GameManager
+		// Zapis będzie powiązany z modelem w grze (unikalny identyfikator)
+		// Na razie wywołaj loadGame z flagą/parametrem — rozszerz GameManager gdy będzie gotowy system zapisu
+		GameManager.I().loadGame(); // TODO: przekaż slot zapisu
 	}
 
 	@RegisterFunction
-	public void _onBackSettingsButtonPressed() // Wywoływane gdy gracz kliknie "Wróć" w ustawieniach
+	public void _onBackGameSelectButtonPressed()
 	{
-		_ready(); // Resetuje UI do stanu początkowego (pokazuje przyciski, ukrywa ustawienia)
+		gameSelect.setVisible(false);
+		mainButtons.setVisible(true);
 	}
 }
