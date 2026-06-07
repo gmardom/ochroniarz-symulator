@@ -22,15 +22,15 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 
 	@RegisterProperty @Export public Node3D shelfWaypointsParent;
 
-	@RegisterProperty @Export public float minSpawnInterval = 5f;
-	@RegisterProperty @Export public float maxSpawnInterval = 15f;
+	@RegisterProperty @Export public float minSpawnInterval = 4f;
+	@RegisterProperty @Export public float maxSpawnInterval = 8f;
 	@RegisterProperty @Export public float civilianChance = 0.7f;
 	@RegisterProperty @Export public int maxActiveNpcs = 15;
 
 	private Node3D[] shelfWaypoints;
 	private float spawnTimer = 0f;
 	private List<NPCBase> activeNpcs = new ArrayList<>();
-	private RandomNumberGenerator spawnRng = new RandomNumberGenerator();
+	private RandomNumberGenerator rng = new RandomNumberGenerator();
 
 	@RegisterFunction
 	public void _ready()
@@ -38,14 +38,23 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 		patchEnvironmentCollision();
 		collectShelfWaypoints();
 		spawnCustomer();
-		spawnTimer = spawnRng.randfRange(minSpawnInterval, maxSpawnInterval);
+		spawnTimer = rng.randfRange(minSpawnInterval, maxSpawnInterval);
+	}
+
+	@RegisterFunction
+	public void _process(double delta)
+	{
+		spawnTimer -= (float) delta;
+		if (spawnTimer <= 0f) {
+			spawnTimer = rng.randfRange(minSpawnInterval, maxSpawnInterval);
+			spawnCustomer();
+		}
 	}
 
 	private void patchEnvironmentCollision()
 	{
 		var root = getTree().getRoot();
 		patchNode(root);
-		print("PeasantSpawner: collision mask layer 2 dodany do StaticBody3D w scenie");
 	}
 
 	private void patchNode(Node node)
@@ -61,21 +70,10 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 		}
 	}
 
-	@RegisterFunction
-	public void _process(double delta)
-	{
-		spawnTimer -= (float) delta;
-		if (spawnTimer <= 0f) {
-			spawnTimer = spawnRng.randfRange(minSpawnInterval, maxSpawnInterval);
-			spawnCustomer();
-		}
-	}
-
 	@Override
 	public void removeNpc(NPCBase npc)
 	{
 		activeNpcs.remove(npc);
-		print("NPC usuniety. Aktywnych: " + activeNpcs.size());
 	}
 
 	private void collectShelfWaypoints()
@@ -94,11 +92,11 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 				shelfWaypoints[i] = wp;
 			}
 		}
-		print("PeasantSpawner: zebrano " + shelfWaypoints.length + " punktow polek");
 	}
 
 	private void spawnCustomer()
 	{
+		// TWARDY LIMIT: nie spawnuj jeśli osiągnięto maxActiveNpcs
 		if (activeNpcs.size() >= maxActiveNpcs) {
 			return;
 		}
@@ -108,6 +106,7 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 			return;
 		}
 
+		// 70% Civilian, 30% Enemy
 		boolean isEnemy = rng.randf() >= civilianChance;
 		PackedScene scene = isEnemy ? enemyScene : civilianScene;
 
@@ -127,9 +126,5 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 		activeNpcs.add(npc);
 		addChild(npc);
 		npc.initialize(entrancePoint, shelfWaypoints, cashierPoint, exitPoint, spawnPoint);
-
-		print("PeasantSpawner: zrespiono " + (isEnemy ? "ENEMY" : "CIVILIAN") + " -> " + npc.getName() + " (aktywni: " + activeNpcs.size() + "/" + maxActiveNpcs + ")");
 	}
-
-	private RandomNumberGenerator rng = new RandomNumberGenerator();
 }
