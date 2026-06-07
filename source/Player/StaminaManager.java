@@ -43,7 +43,7 @@ public class StaminaManager extends Node
 	{
 		if (currentStamina <= 0f && !exhausted) {
 			exhausted = true;
-			print("Stamina exhausted!");
+			//print("Stamina exhausted!");
 		} else if (currentStamina > minSprintThreshold) {
 			exhausted = false;
 		}
@@ -75,7 +75,7 @@ public class StaminaManager extends Node
 		currentStamina = Math.max(0f, currentStamina - amount);
 		regenBlockTimer = REGEN_BLOCK_DURATION;
 		if ((int) before != (int) currentStamina) {
-			print("Stamina: " + (int) currentStamina + "/" + (int) maxStamina);
+			//print("Stamina: " + (int) currentStamina + "/" + (int) maxStamina);
 		}
 		if (staminaBar != null) {
 			staminaBar.setValue(currentStamina);
