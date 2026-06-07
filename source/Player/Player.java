@@ -100,6 +100,18 @@ public class Player extends CharacterBody3D
 		}
 	}
 
+	private String getInteractableName(Node3D collider)
+	{
+		Node current = collider;
+		for (int i = 0; i < 10; i++) {
+			if (current == null) break;
+			if (current instanceof Node3D n && n.isInGroup("interactable"))
+				return current.getName().toString();
+			current = current.getParent();
+		}
+		return null;
+	}
+
 	@RegisterFunction
 	public void _physicsProcess(double delta)
 	{
@@ -148,11 +160,10 @@ public class Player extends CharacterBody3D
 
 		if (GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
 			var collider = (Node3D) interactionRayCast.getCollider();
+			String interactableName = getInteractableName(collider);
 
-			if (collider.isInGroup("interactable")) {
-				String name = collider.getName().toString();
-
-				if (name.equals("PC")) {
+			if (interactableName != null) {
+				if (interactableName.equals("InteractPC")) {
 					if (!GameLoop.I().isShiftActive()) {
 						if (hud != null) hud.startInteraction("Zacznij prace");
 						if (Input.isActionJustPressed("interact")) {
@@ -165,7 +176,7 @@ public class Player extends CharacterBody3D
 							if (hud != null) hud.stopInteraction();
 						}
 					}
-				} else if (name.equals("Bed")) {
+				} else if (interactableName.equals("InteractBed")) {
 					if (hud != null) hud.startInteraction("Zapisz gre");
 					if (Input.isActionJustPressed("interact")) {
 						GameLoop.I().saveGame();

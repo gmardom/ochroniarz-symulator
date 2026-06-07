@@ -2,6 +2,7 @@ package Player;
 
 import godot.annotation.*;
 import godot.api.*;
+import static godot.global.GD.*;
 
 @RegisterClass
 public class HeadsUpDisplay extends CanvasLayer
@@ -19,10 +20,12 @@ public class HeadsUpDisplay extends CanvasLayer
 		if (crosshair != null) crosshair.setVisible(true);
 		if (shiftSummaryPanel != null) shiftSummaryPanel.setVisible(false);
 		summaryText = (Label) getNode("ShiftSummaryPanel/SummaryText");
+		print("interractionText: " + interractionText);
 	}
 
 	public void startInteraction(String text)
 	{
+		print("startInteraction: '" + text + "'");
 		if (interractionText != null) {
 			interractionText.setText("F) " + text);
 			interractionText.setVisible(true);

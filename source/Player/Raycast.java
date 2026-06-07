@@ -11,10 +11,7 @@ public class Raycast extends RayCast3D
 	{
 		if (isColliding()) {
 			var hitObj = getCollider();
-			if (hitObj instanceof Node node) {
-				if (node.isInGroup("interactable")) {
-					return;
-				}
+			if (hitObj instanceof RigidBody3D node) {
 				if (Input.isActionJustPressed("interact")) {
 					node.callDeferred("interact");
 				}
