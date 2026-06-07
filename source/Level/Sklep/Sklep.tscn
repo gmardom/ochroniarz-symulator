@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://3ou676g0d6gv" path="res://source/Level/Rzeczy/lodowa/food_shop_showcase.glb" id="4_1fkmm"]
 [ext_resource type="PackedScene" uid="uid://cbb62a0at5t62" path="res://source/Level/Rzeczy/Beds/mattress.glb" id="5_w7lej"]
 [ext_resource type="PackedScene" uid="uid://bh6hlsjosrll1" path="res://source/Level/Rzeczy/Desk/desk.glb" id="6_sx23t"]
-[ext_resource type="PackedScene" uid="uid://cgsw0kq7clrft" path="res://source/Level/Rzeczy/PC/psx_dirty_old_pc.glb" id="7_5rcug"]
+[ext_resource type="PackedScene" uid="uid://ckd187oank0kw" path="res://source/Level/Rzeczy/PC/PC.tscn" id="7_sx23t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -975,5 +975,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.2, 66)
 [node name="Desk" parent="." instance=ExtResource("6_sx23t")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39, 0, 64)
 
-[node name="PC" parent="." groups=["interactable"] instance=ExtResource("7_5rcug")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.17217, 1.0636866, 64)
+[node name="PC" parent="." instance=ExtResource("7_sx23t")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.17082, 1.0621893, 64.00259)
