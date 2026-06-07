@@ -24,6 +24,7 @@ signals = [
 properties = [
     health,
 	hostile,
+	animation_player,
 	speed,
 	min_speed,
 	max_speed,
