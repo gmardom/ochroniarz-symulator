@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckd187oank0kw"]
+
+[ext_resource type="PackedScene" uid="uid://cgsw0kq7clrft" path="res://source/Level/Rzeczy/PC/psx_dirty_old_pc.glb" id="1_c77n6"]
+[ext_resource type="Script" uid="uid://drk5iiotxcjtv" path="res://scripts/Level/Rzeczy/PC/ComputerTerminal.gdj" id="2_wjccg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c77n6"]
+size = Vector3(1, 0.6, 0.8)
+
+[node name="PC" instance=ExtResource("1_c77n6")]
+
+[node name="StaticBody3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/SM_Monitor_0/Object_4" index="0"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="StaticBody3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/SM_Mouse_1/Object_6" index="0"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="StaticBody3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/SM_Keyboard_2/Object_8" index="0"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="StaticBody3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/SM_ComputerCase_3/Object_10" index="0"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="StaticBody3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/SM_Mousepad_4/Object_12" index="0"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+script = ExtResource("2_wjccg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20000005, 0.3, 0.09999998)
+shape = SubResource("BoxShape3D_c77n6")
