@@ -252,7 +252,9 @@ public class NPCBase extends CharacterBody3D
 		switch (state) {
 			case STATE_TO_ENTRANCE:
 				if (currentTarget != null) {
-					setGlobalPosition(currentTarget);
+					var pos = getGlobalPosition();
+					pos.setY(currentTarget.getY());
+					setGlobalPosition(pos);
 				}
 				setGhostMode(false);
 				state = CustomerState.STATE_AT_SHELF;
