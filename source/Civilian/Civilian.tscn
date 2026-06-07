@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://civiliandefault"]
+
+[ext_resource type="Script" path="res://scripts/Civilian/Civilian.gdj" id="1_civ"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_civ"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_civ"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_civ"]
+albedo_color = Color(0.2, 0.6, 0.8, 1)
+roughness = 0.5
+
+[node name="Civilian" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_civ")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_civ")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_civ")
+material = SubResource("StandardMaterial3D_civ")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
