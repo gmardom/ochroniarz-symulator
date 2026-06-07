@@ -79,6 +79,12 @@ public class Player extends CharacterBody3D
 		if (interactionRayCast != null) {
 			interactionRayCast.setCollisionMaskValue(2, true);
 		}
+
+		if (hud != null && GameManager.I() != null) {
+			GameManager.I().gameHud = hud;
+		}
+
+		setCollisionLayerValue(8, true);
 	}
 
 	@RegisterFunction
@@ -107,22 +113,39 @@ public class Player extends CharacterBody3D
 			neck.setPosition(lerp(neck.getPosition(), position, t));
 		}
 
+		if (isSlipping) {
+			slipTimer -= (float) delta;
+			if (slipTimer <= 0f) {
+				isSlipping = false;
+				print("Player recovered");
+			}
+		}
+
+		if (isSlipping || isDragging) return;
+
 		if (Input.isActionJustPressed("attack")) {
 			if (staminaManager != null && !staminaManager.canAttack()) {
-				print("Not enough stamina to attack!");
-			} else if (weaponAnimationPlayer != null && !weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) {
-				if (staminaManager != null) staminaManager.consume(staminaManager.attackCost);
+				print("Player attack missed — not enough stamina");
+				return;
+			}
+			if (staminaManager != null) staminaManager.consume(staminaManager.attackCost);
 
+			if (weaponAnimationPlayer != null) {
 				weaponAnimationPlayer.stop();
 				weaponAnimationPlayer.play("Attack");
 				weaponAnimationPlayer.queue("Idle");
+			}
 
-				if (interactionRayCast != null && interactionRayCast.isColliding()) {
-					var collider = interactionRayCast.getCollider();
-					if (collider instanceof Enemy enemy) {
-						enemy.damage(20);
-					}
+			if (interactionRayCast != null && interactionRayCast.isColliding()) {
+				var collider = interactionRayCast.getCollider();
+				if (collider instanceof Enemy enemy) {
+					enemy.takeDamage(1);
+					print("Player attack hit");
+				} else {
+					print("Player attack missed — not an enemy");
 				}
+			} else {
+				print("Player attack missed — nothing in range");
 			}
 		}
 	}
@@ -137,6 +160,7 @@ public class Player extends CharacterBody3D
 		var fov = base_fov;
 
 		var inputDir = Input.getVector("move_left", "move_right", "move_forward", "move_backward");
+		if (isSlipping) inputDir = new Vector2(0, 0);
 		var direction = getBasis().times(new Vector3(inputDir.getX(), 0, inputDir.getY())).normalized();
 
 		if (!isOnFloor()) {
@@ -147,11 +171,11 @@ public class Player extends CharacterBody3D
 			}
 		}
 
-		if (Input.isActionPressed("jump") && isOnFloor()) {
+		if (!isSlipping && Input.isActionPressed("jump") && isOnFloor()) {
 			velocity.setY(jumpVelocity);
 		}
 
-		isSprinting = Input.isActionPressed("sprint") && inputDir.getY() < 0;
+		isSprinting = !isDragging && Input.isActionPressed("sprint") && inputDir.getY() < 0;
 		if (isSprinting && staminaManager != null && !staminaManager.canSprint()) {
 			isSprinting = false;
 		}
@@ -159,6 +183,9 @@ public class Player extends CharacterBody3D
 			speed = runSpeed;
 			fov *= runFovModifier;
 			if (staminaManager != null) staminaManager.consume(staminaManager.decayRate * (float) delta);
+		}
+		if (isDragging) {
+			speed = walkSpeed * dragMoveSpeedMultiplier;
 		}
 
 		if (!direction.isZeroApprox()) {
@@ -178,31 +205,66 @@ public class Player extends CharacterBody3D
 		setVelocity(velocity);
 		moveAndSlide();
 
-		if (GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
+		if (isDragging && draggedEnemy != null) {
+			var pos = getGlobalPosition();
+			var offset = getBasis().times(dragOffset);
+			draggedEnemy.setGlobalPosition(new Vector3(
+				pos.getX() + offset.getX(),
+				pos.getY() + offset.getY(),
+				pos.getZ() + offset.getZ()
+			));
+		}
+
+		if (isDragging && isInDropZone) {
+			dropDeliver();
+		}
+
+		if (!isSlipping && !isDragging && GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
 			var collider = (Node3D) interactionRayCast.getCollider();
 
 			if (collider.isInGroup("interactable")) {
-				String name = collider.getName().toString();
-
-				if (name.equals("PC")) {
-					if (!GameLoop.I().isShiftActive()) {
-						if (hud != null) hud.startInteraction("Zacznij prace");
-						if (Input.isActionJustPressed("interact")) {
-							GameLoop.I().startShift();
-							if (hud != null) hud.stopInteraction();
-						}
-					} else {
-						if (hud != null) hud.startInteraction("Koniec zmiany");
-						if (Input.isActionJustPressed("interact")) {
-							if (hud != null) hud.stopInteraction();
-						}
-					}
-				} else if (name.equals("Bed")) {
-					if (hud != null) hud.startInteraction("Zapisz gre");
+				if (collider instanceof Interactable interactable) {
+					if (hud != null) hud.startInteraction("Interakcja");
 					if (Input.isActionJustPressed("interact")) {
-						GameLoop.I().saveGame();
+						interactable.interact(this);
 						if (hud != null) hud.stopInteraction();
 					}
+				} else {
+					String name = collider.getName().toString();
+
+					if (name.equals("PC")) {
+						if (!GameLoop.I().isShiftActive()) {
+							if (hud != null) hud.startInteraction("Zacznij prace");
+							if (Input.isActionJustPressed("interact")) {
+								GameLoop.I().startShift();
+								if (hud != null) hud.stopInteraction();
+							}
+						} else {
+							if (hud != null) hud.startInteraction("Koniec zmiany");
+							if (Input.isActionJustPressed("interact")) {
+								if (hud != null) hud.stopInteraction();
+							}
+						}
+					} else if (name.equals("Bed")) {
+						if (hud != null) hud.startInteraction("Zapisz gre");
+						if (Input.isActionJustPressed("interact")) {
+							GameLoop.I().saveGame();
+							if (hud != null) hud.stopInteraction();
+						}
+					}
+				}
+			} else if (collider instanceof Enemy enemy) {
+				if (enemy.canBeDragged()) {
+					if (hud != null) hud.startInteraction("Przeciagnij");
+					if (Input.isActionJustPressed("interact")) {
+						isDragging = true;
+						draggedEnemy = enemy;
+						enemy.setDragged(true);
+						if (hud != null) hud.stopInteraction();
+						print("Started dragging enemy");
+					}
+				} else {
+					if (hud != null) hud.startInteraction("Interakcja");
 				}
 			} else {
 				if (hud != null) hud.startInteraction("Interakcja");
@@ -210,5 +272,27 @@ public class Player extends CharacterBody3D
 		} else {
 			if (hud != null) hud.stopInteraction();
 		}
+	}
+
+	public void dropDeliver()
+	{
+		if (!isDragging || draggedEnemy == null) return;
+
+		print("Stopped dragging enemy");
+		draggedEnemy.deliver();
+		draggedEnemy = null;
+		isDragging = false;
+		print("Enemy delivered");
+
+		if (GameManager.I() != null) {
+			GameManager.I().registerResolvedIncident();
+		}
+	}
+
+	public void applySlip(float duration)
+	{
+		isSlipping = true;
+		slipTimer = duration;
+		print("Player slipped");
 	}
 }

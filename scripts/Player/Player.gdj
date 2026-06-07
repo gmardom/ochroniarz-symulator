@@ -37,7 +37,9 @@ properties = [
 	hud,
 	interaction_ray_cast,
 	weapon_animation_player,
-	stamina_manager
+	stamina_manager,
+	drag_move_speed_multiplier,
+	drag_offset
 ]
 functions = [
     _process,
