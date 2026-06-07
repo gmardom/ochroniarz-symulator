@@ -11,9 +11,10 @@ public class Enemy extends NPCBase
 	@Override
 	public void _ready()
 	{
-		super._ready();
 		hostile = true;
-		print(getName() + " skonfigurowany jako wrog");
+		minSpeed = 3.0f;
+		maxSpeed = 6.0f;
+		super._ready();
 	}
 
 	@RegisterFunction
@@ -21,5 +22,15 @@ public class Enemy extends NPCBase
 	public void _physicsProcess(double delta)
 	{
 		super._physicsProcess(delta);
+	}
+
+	@Override
+	protected void onArriveAtShelf()
+	{
+		if (rng.randf() < 0.3f) {
+			print(getName() + " COS CHOWAM...");
+		} else {
+			print(getName() + " udaje ze oglada towar");
+		}
 	}
 }

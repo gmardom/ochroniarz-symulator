@@ -2,7 +2,6 @@ package Civilian;
 
 import NPC.NPCBase;
 import godot.annotation.*;
-import static godot.global.GD.*;
 
 @RegisterClass
 public class Civilian extends NPCBase
@@ -11,10 +10,10 @@ public class Civilian extends NPCBase
 	@Override
 	public void _ready()
 	{
-		super._ready();
 		hostile = false;
-		speed = 1.5f;
-		print(getName() + " skonfigurowany jako cywil");
+		minSpeed = 1.5f;
+		maxSpeed = 3.5f;
+		super._ready();
 	}
 
 	@RegisterFunction
