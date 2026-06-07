@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp4eak0pu113p"]
+[gd_scene load_steps=6 format=3 uid="uid://bp4eak0pu113p"]
 
 [ext_resource type="PackedScene" uid="uid://c6mx0dql6ayym" path="res://source/Player/Player.tscn" id="1_54pob"]
 [ext_resource type="PackedScene" uid="uid://dkcmhwnvxh7c6" path="res://source/Level/Sklep/Sklep.tscn" id="2_tonrk"]
 [ext_resource type="PackedScene" uid="uid://bws341i6dt5vn" path="res://source/Enemy/Enemy.tscn" id="3_1es6e"]
+[ext_resource type="Script" uid="uid://c370r7mro08n4" path="res://source/Game/GameLoop.java" id="4_rcx6j"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 ssr_enabled = true
@@ -35,3 +36,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.38584, 0, -21.317837)
 
 [node name="Enemy4" parent="." instance=ExtResource("3_1es6e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.47687, 0, 56.819695)
+
+[node name="GameLoop" type="Node" parent="."]
+script = ExtResource("4_rcx6j")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6ds5xqveqqey"]
+[gd_scene load_steps=16 format=3 uid="uid://c6ds5xqveqqey"]
 
 [ext_resource type="Script" uid="uid://c6wv8kom6305x" path="res://scripts/Menu/MenuPause.gdj" id="1_mvyxc"]
 [ext_resource type="Shader" uid="uid://bo2d512iao4ev" path="res://source/Menu/Blur.gdshader" id="2_dddqa"]
@@ -33,7 +33,11 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8os8c"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgmkx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6o4a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcqal"]
 bg_color = Color(0.7529412, 0.03529412, 0.019607844, 1)
@@ -74,15 +78,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -65.5
+offset_top = -38.5
+offset_right = 90.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BackButton" type="Button" parent="MainButtons"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_1s53t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3f0er")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gh1x5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8os8c")
 text = "Powrót do gry"
 
 [node name="SettingsButton" type="Button" parent="MainButtons"]
@@ -99,6 +111,14 @@ text = "Ustawienia"
 
 [node name="QuitButton" type="Button" parent="MainButtons"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_1s53t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3f0er")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gh1x5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u6o4a")
 text = "Wyjście do menu"
 
 [node name="Settings" type="Panel" parent="."]

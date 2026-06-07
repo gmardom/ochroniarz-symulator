@@ -19,7 +19,7 @@ signals = [
     
 ]
 properties = [
-    hud
+    
 ]
 functions = [
     _process

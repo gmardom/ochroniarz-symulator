@@ -26,5 +26,8 @@ functions = [
 	_on_start_button_pressed,
 	_on_settings_button_pressed,
 	_on_quit_button_pressed,
-	_on_back_settings_button_pressed
+	_on_back_settings_button_pressed,
+	_on_new_game_button_pressed,
+	_on_load_game_button_pressed,
+	_on_back_game_select_button_pressed
 ]

@@ -3,7 +3,7 @@
 
 registeredName = Drzwi
 fqName = Game.Drzwi
-relativeSourcePath = source/Level/Rzeczy/Drzwi.java
+relativeSourcePath = source/Level/Rzeczy/Drzwi/Drzwi.java
 baseType = RigidBody3D
 supertypes = [
     godot.api.RigidBody3D,

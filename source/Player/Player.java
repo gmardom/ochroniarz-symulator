@@ -32,7 +32,7 @@ public class Player extends CharacterBody3D
 
 	@RegisterProperty @Export public float fovChangeSpeed = 10f;
 	@RegisterProperty @Export public float runFovModifier = 1.15f;
-	private float base_fov = 0f; // Set in editor in camera
+	private float base_fov = 0f;
 
 	@RegisterProperty @Export public HeadsUpDisplay hud;
 	@RegisterProperty @Export public RayCast3D interactionRayCast;
@@ -47,13 +47,12 @@ public class Player extends CharacterBody3D
 		if (camera != null) base_fov = camera.getFov();
 		eyeLevel = baseEyeLevel;
 
-		// Calculate jump speeds
 		jumpGravity = (2 * jumpHeight) / pow(jumpPeakTime, 2);
 		fallGravity = (2 * jumpHeight) / pow(jumpFallTime, 2);
 		jumpVelocity = jumpGravity * jumpPeakTime;
 
 		if (hud != null) hud.stopInteraction();
-		
+
 		if (weaponAnimationPlayer != null) {
 			weaponAnimationPlayer.stop();
 			weaponAnimationPlayer.play("Idle");
@@ -64,12 +63,10 @@ public class Player extends CharacterBody3D
 	public void _unhandledInput(InputEvent event)
 	{
 		if (event instanceof InputEventMouseMotion ev) {
-			// Rotate player left and right
 			rotateY((float) -ev.getRelative().getX() * mouseSensitivity);
-			// Rotate neck up and down
 			if (neck != null) {
 				var rotation = neck.getRotation();
-				rotation.setY(getRotation().getY()); // Apply player rotation on y
+				rotation.setY(getRotation().getY());
 				rotation.setX(clamp(rotation.getX() + (-ev.getRelative().getY() * mouseSensitivity), -PI/2f, PI/2f));
 				neck.setRotation(rotation);
 			}
@@ -81,7 +78,6 @@ public class Player extends CharacterBody3D
 	{
 		final float CAMERA_SMOOTHNESS = 50f;
 
-		// Smoothly move neck
 		if (neck != null) {
 			var position = getPosition();
 			position.setY(position.getY() + eyeLevel);
@@ -89,15 +85,16 @@ public class Player extends CharacterBody3D
 		}
 
 		if (Input.isActionJustPressed("attack")) {
-			if (weaponAnimationPlayer != null) {
+			if (weaponAnimationPlayer != null && !weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) {
 				weaponAnimationPlayer.stop();
 				weaponAnimationPlayer.play("Attack");
 				weaponAnimationPlayer.queue("Idle");
-			}
-			if (interactionRayCast != null && interactionRayCast.isColliding()) {
-				var collider = interactionRayCast.getCollider();
-				if (collider instanceof Enemy enemy) {
-					enemy.damage(20);
+
+				if (interactionRayCast != null && interactionRayCast.isColliding()) {
+					var collider = interactionRayCast.getCollider();
+					if (collider instanceof Enemy enemy) {
+						enemy.damage(20);
+					}
 				}
 			}
 		}
@@ -115,7 +112,6 @@ public class Player extends CharacterBody3D
 		var inputDir = Input.getVector("move_left", "move_right", "move_forward", "move_backward");
 		var direction = getBasis().times(new Vector3(inputDir.getX(), 0, inputDir.getY())).normalized();
 
-		// Apply gravity
 		if (!isOnFloor()) {
 			if (velocity.getY() > 0f) {
 				velocity.setY(velocity.getY() - jumpGravity * delta);
@@ -124,18 +120,15 @@ public class Player extends CharacterBody3D
 			}
 		}
 
-		// Jumping
 		if (Input.isActionPressed("jump") && isOnFloor()) {
 			velocity.setY(jumpVelocity);
 		}
 
-		// Sprinting
 		if (Input.isActionPressed("sprint") && inputDir.getY() < 0) {
 			speed = runSpeed;
 			fov *= runFovModifier;
 		}
 
-		// Apply movement
 		if (!direction.isZeroApprox()) {
 			velocity.setX(direction.getX() * speed);
 			velocity.setZ(direction.getZ() * speed);
@@ -146,41 +139,44 @@ public class Player extends CharacterBody3D
 			}
 		}
 
-		// Smoothly apply FOV change
 		if (camera != null) {
 			camera.setFov(lerp(camera.getFov(), fov, (float) delta * fovChangeSpeed));
 		}
 
-		// Finally apply velocity
 		setVelocity(velocity);
 		moveAndSlide();
 
-		// Check interaction raycast
-		/*if (interactionRayCast != null && interactionRayCast.isColliding()) {
-			interactionRayCastHit = true;
-			// TODO: Detect and adjust interaction text
-			if (hud != null) hud.startInteraction("Ukaraj");
+		if (GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
 			var collider = (Node3D) interactionRayCast.getCollider();
-			if (Input.isActionPressed("interact")) {
-				collider.queueFree();
+
+			if (collider.isInGroup("interactable")) {
+				String name = collider.getName().toString();
+
+				if (name.equals("PC")) {
+					if (!GameLoop.I().isShiftActive()) {
+						if (hud != null) hud.startInteraction("Zacznij prace");
+						if (Input.isActionJustPressed("interact")) {
+							GameLoop.I().startShift();
+							if (hud != null) hud.stopInteraction();
+						}
+					} else {
+						if (hud != null) hud.startInteraction("Koniec zmiany");
+						if (Input.isActionJustPressed("interact")) {
+							if (hud != null) hud.stopInteraction();
+						}
+					}
+				} else if (name.equals("Bed")) {
+					if (hud != null) hud.startInteraction("Zapisz gre");
+					if (Input.isActionJustPressed("interact")) {
+						GameLoop.I().saveGame();
+						if (hud != null) hud.stopInteraction();
+					}
+				}
+			} else {
+				if (hud != null) hud.startInteraction("Interakcja");
 			}
 		} else {
-			interactionRayCastHit = false;
 			if (hud != null) hud.stopInteraction();
 		}
-		// Check interaction raycast
-		if (interactionRayCast != null && interactionRayCast.isColliding()) {
-			interactionRayCastHit = true;
-			if (hud != null) hud.startInteraction("Interakcja");
-			var collider = interactionRayCast.getCollider();
-			if (Input.isActionJustPressed("interact")) { // isActionJustPressed zamiast isActionPressed
-				if (collider instanceof Node node) {
-					node.callDeferred("interact"); // Wywołuje interact() zamiast queueFree()
-				}
-			}
-		} else {
-			interactionRayCastHit = false;
-			if (hud != null) hud.stopInteraction();
-		}*/
 	}
 }

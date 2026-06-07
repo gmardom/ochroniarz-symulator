@@ -19,7 +19,9 @@ signals = [
 ]
 properties = [
     crosshair,
-	interraction_text
+	interraction_text,
+	clock_label,
+	shift_summary_panel
 ]
 functions = [
     _ready
