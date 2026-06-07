@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://brnk2xvetssav"]
+
+[ext_resource type="Script" path="res://source/Game/Rzeczy/Puddle/Puddle.java" id="1_ecf2q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1tpjo"]
+size = Vector3(1, 0.05, 1)
+
+[node name="Puddle" type="Node3D"]
+script = ExtResource("1_ecf2q")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_1tpjo")
