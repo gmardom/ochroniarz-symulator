@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf0qeq5wqd5kk"]
+
+[ext_resource type="Script" path="res://source/Game/Rzeczy/IncidentDropZone/IncidentDropZone.java" id="1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+
+size = Vector3(3, 2, 3)
+
+[node name="IncidentDropZone" type="Area3D"]
+collision_mask = 8
+script = ExtResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1")
