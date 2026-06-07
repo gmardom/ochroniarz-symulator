@@ -27,7 +27,8 @@ properties = [
 	cashier_point,
 	exit_point,
 	shelf_waypoints_parent,
-	spawn_interval,
+	min_spawn_interval,
+	max_spawn_interval,
 	civilian_chance,
 	max_active_npcs
 ]

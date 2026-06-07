@@ -22,13 +22,15 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 
 	@RegisterProperty @Export public Node3D shelfWaypointsParent;
 
-	@RegisterProperty @Export public float spawnInterval = 10f;
+	@RegisterProperty @Export public float minSpawnInterval = 5f;
+	@RegisterProperty @Export public float maxSpawnInterval = 15f;
 	@RegisterProperty @Export public float civilianChance = 0.7f;
 	@RegisterProperty @Export public int maxActiveNpcs = 15;
 
 	private Node3D[] shelfWaypoints;
 	private float spawnTimer = 0f;
 	private List<NPCBase> activeNpcs = new ArrayList<>();
+	private RandomNumberGenerator spawnRng = new RandomNumberGenerator();
 
 	@RegisterFunction
 	public void _ready()
@@ -36,7 +38,7 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 		patchEnvironmentCollision();
 		collectShelfWaypoints();
 		spawnCustomer();
-		spawnTimer = spawnInterval;
+		spawnTimer = spawnRng.randfRange(minSpawnInterval, maxSpawnInterval);
 	}
 
 	private void patchEnvironmentCollision()
@@ -64,7 +66,7 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 	{
 		spawnTimer -= (float) delta;
 		if (spawnTimer <= 0f) {
-			spawnTimer = spawnInterval;
+			spawnTimer = spawnRng.randfRange(minSpawnInterval, maxSpawnInterval);
 			spawnCustomer();
 		}
 	}
