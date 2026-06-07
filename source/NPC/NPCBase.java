@@ -15,6 +15,7 @@ public class NPCBase extends CharacterBody3D
 	public enum CustomerState {
 		STATE_SPAWN,
 		STATE_TO_ENTRANCE,
+		STATE_ENTRANCE_QUEUE,
 		STATE_AT_SHELF,
 		STATE_TO_CASHIER,
 		STATE_AT_CASHIER,
@@ -45,6 +46,8 @@ public class NPCBase extends CharacterBody3D
 	protected Vector3 currentTarget;
 
 	protected int shelvesVisited = 0;
+	protected java.util.ArrayList<Node3D> entranceChildren = new java.util.ArrayList<>();
+	protected int currentChildIndex = 0;
 
 	private static final int MAX_SHELVES = 3;
 
@@ -334,7 +337,10 @@ public class NPCBase extends CharacterBody3D
 		}
 
 		if (previousState != state) {
-			print("NPC " + getName() + " zmienił stan na: " + state);
+			String childInfo = entranceChildren.isEmpty()
+				? "done"
+				: currentChildIndex + "/" + entranceChildren.size();
+			print("[NPC] " + getName() + " Stan: " + state + " | Dziecko wejścia: " + childInfo);
 		}
 	}
 
@@ -348,8 +354,39 @@ public class NPCBase extends CharacterBody3D
 					setGlobalPosition(pos);
 				}
 				setGhostMode(false);
-				state = CustomerState.STATE_AT_SHELF;
-				enterShopping();
+
+				entranceChildren.clear();
+				if (entrancePoint != null) {
+					int count = entrancePoint.getChildCount();
+					for (int i = 0; i < count; i++) {
+						Node child = entrancePoint.getChild(i);
+						if (child instanceof Node3D child3d) {
+							entranceChildren.add(child3d);
+						}
+					}
+				}
+				currentChildIndex = 0;
+
+				if (entranceChildren.isEmpty()) {
+					state = CustomerState.STATE_AT_SHELF;
+					enterShopping();
+				} else {
+					state = CustomerState.STATE_ENTRANCE_QUEUE;
+					setTarget(entranceChildren.get(0).getGlobalPosition(), false);
+				}
+				break;
+
+			case STATE_ENTRANCE_QUEUE:
+				currentChildIndex++;
+				if (currentChildIndex < entranceChildren.size()) {
+					setTarget(entranceChildren.get(currentChildIndex).getGlobalPosition(), false);
+					print("NPC " + getName() + " | Dziecko wejścia: " + currentChildIndex + "/" + entranceChildren.size());
+				} else {
+					entranceChildren.clear();
+					currentChildIndex = 0;
+					state = CustomerState.STATE_AT_SHELF;
+					enterShopping();
+				}
 				break;
 
 			case STATE_AT_SHELF:
