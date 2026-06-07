@@ -167,6 +167,8 @@ public class Player extends CharacterBody3D
 					if (!GameLoop.I().isShiftActive()) {
 						if (hud != null) hud.startInteraction("Zacznij prace");
 						if (Input.isActionJustPressed("interact")) {
+							print("GameLoop: " + GameLoop.I());
+							print("hud: " + hud);
 							GameLoop.I().startShift();
 							if (hud != null) hud.stopInteraction();
 						}

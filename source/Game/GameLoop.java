@@ -1,9 +1,11 @@
 package Game;
 
+import Player.HeadsUpDisplay;
 import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.api.Node;
 import godot.api.Input;
+import static godot.global.GD.*;
 
 @RegisterClass
 public class GameLoop extends Node
@@ -22,8 +24,7 @@ public class GameLoop extends Node
 	public int robbedThisShift = 0;
 
 	public SaveData saveData = new SaveData();
-
-	public Player.HeadsUpDisplay hud;
+	public HeadsUpDisplay hud;
 
 	@RegisterFunction
 	public void _enterTree() { I = this; }
@@ -32,6 +33,13 @@ public class GameLoop extends Node
 	public void _ready()
 	{
 		setProcess(false);
+		var player = getNode("/root/Game/Level/Player");
+		if (player != null) {
+			hud = (HeadsUpDisplay) player.getNode("HeadsUpDisplay");
+			print("GameLoop hud: " + hud);
+		} else {
+			print("Player not found!");
+		}
 	}
 
 	@RegisterFunction
@@ -41,12 +49,12 @@ public class GameLoop extends Node
 		if (GameManager.I().currentState == GameManager.State.Paused) return;
 
 		timeAccumulator += (float) delta;
+		print("timeAccumulator: " + timeAccumulator);
 
 		if (timeAccumulator >= HOUR_DURATION) {
 			timeAccumulator -= HOUR_DURATION;
 			currentHour++;
 			if (hud != null) hud.updateClock(currentHour);
-
 			if (currentHour >= WORK_HOURS) {
 				endShift();
 			}
@@ -61,6 +69,7 @@ public class GameLoop extends Node
 		caughtThisShift = 0;
 		robbedThisShift = 0;
 		setProcess(true);
+		print("startShift called, setProcess(true)");
 		if (hud != null) hud.updateClock(0);
 	}
 
@@ -68,11 +77,9 @@ public class GameLoop extends Node
 	{
 		shiftActive = false;
 		setProcess(false);
-
 		saveData.totalCaught += caughtThisShift;
 		saveData.totalRobbed += robbedThisShift;
 		saveData.day++;
-
 		if (hud != null) hud.showShiftSummary(caughtThisShift, robbedThisShift);
 	}
 

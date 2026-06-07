@@ -15,12 +15,14 @@ public class Level extends Node3D
 		var gameLoop = (GameLoop) getNode("GameLoop");
 		var hud = (HeadsUpDisplay) getNode("/root/Game/Level/Player/HeadsUpDisplay");
 
-		if (gameLoop != null) {
-			if (hud != null) {
-				gameLoop.hud = hud;
-			} else {
-				print("HUD is null!");
-			}
+		print("gameLoop: " + gameLoop);
+		print("hud: " + hud);
+
+		if (gameLoop != null && hud != null) {
+			gameLoop.hud = hud;
+			print("HUD assigned to GameLoop!");
+		} else if (hud == null) {
+			print("HUD is null!");
 		} else {
 			print("GameLoop is null!");
 		}
