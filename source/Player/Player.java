@@ -44,6 +44,20 @@ public class Player extends CharacterBody3D
 
 	@RegisterProperty @Export public StaminaManager staminaManager;
 	private boolean isSprinting = false;
+	private boolean isSlipping = false;
+	private float slipTimer = 0f;
+	private boolean isDragging = false;
+	private Enemy draggedEnemy = null;
+	private boolean isInDropZone = false;
+
+	@RegisterProperty @Export public float dragMoveSpeedMultiplier = 0.45f;
+	@RegisterProperty @Export public Vector3 dragOffset = new Vector3(0, 0, 1.5f);
+
+	public boolean isSprinting() { return isSprinting; }
+
+	public boolean isDragging() { return isDragging; }
+
+	public void setInDropZone(boolean value) { isInDropZone = value; }
 
 	@RegisterFunction
 	public void _ready()
