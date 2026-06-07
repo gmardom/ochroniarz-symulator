@@ -38,7 +38,7 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 	{
 		patchEnvironmentCollision();
 		collectShelfWaypoints();
-		spawnCustomer();
+		//spawnCustomer();
 		spawnTimer = rng.randfRange(minSpawnInterval, maxSpawnInterval);
 	}
 
