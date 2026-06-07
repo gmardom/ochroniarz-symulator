@@ -91,7 +91,7 @@ transform = Transform3D(0.7591464, 0.48587316, -0.43315592, -5.164152e-09, 0.665
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_54pob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.444283, 0, -45.90983)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 33.444283, 0, 63.990173)
 
 [node name="GameLoop" type="Node" parent="."]
 script = ExtResource("4_rcx6j")
