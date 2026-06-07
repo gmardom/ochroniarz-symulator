@@ -27,6 +27,7 @@ public class NPCBase extends CharacterBody3D
 
 	@RegisterProperty @Export public float health = 100f;
 	@RegisterProperty @Export public boolean hostile = false;
+	@RegisterProperty @Export public AnimationPlayer animationPlayer;
 	@RegisterProperty @Export public float speed = 2.0f;
 	@RegisterProperty @Export public float minSpeed = 2.0f;
 	@RegisterProperty @Export public float maxSpeed = 5.0f;
