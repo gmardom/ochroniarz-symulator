@@ -25,7 +25,11 @@ properties = [
     health,
 	hostile,
 	speed,
-	wander_radius
+	wander_radius,
+	min_wait_time,
+	max_wait_time,
+	min_speed,
+	max_speed
 ]
 functions = [
     _physics_process,
