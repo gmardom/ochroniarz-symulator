@@ -2,7 +2,6 @@ package Enemy;
 
 import NPC.NPCBase;
 import godot.annotation.*;
-import static godot.global.GD.*;
 
 @RegisterClass
 public class Enemy extends NPCBase
@@ -27,10 +26,5 @@ public class Enemy extends NPCBase
 	@Override
 	protected void onArriveAtShelf()
 	{
-		if (rng.randf() < 0.3f) {
-			print(getName() + " COS CHOWAM...");
-		} else {
-			print(getName() + " udaje ze oglada towar");
-		}
 	}
 }

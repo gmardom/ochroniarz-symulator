@@ -28,7 +28,7 @@ public class NPCBase extends CharacterBody3D
 	@RegisterProperty @Export public float speed = 2.0f;
 	@RegisterProperty @Export public float minSpeed = 2.0f;
 	@RegisterProperty @Export public float maxSpeed = 5.0f;
-	@RegisterProperty @Export public float arrivalThreshold = 1.2f;
+	@RegisterProperty @Export public float arrivalThreshold = 1.5f;
 
 	public Node3D entrancePoint;
 	public Node3D[] shelfWaypoints;
@@ -54,9 +54,19 @@ public class NPCBase extends CharacterBody3D
 	protected float timeSinceSpawn = 0f;
 	protected boolean ghostMode = true;
 
-	private static final float ARRIVAL_DIST = 0.3f;
+	// Anti-stuck
+	protected float stuckTimer = 0f;
+	private static final float STUCK_THRESHOLD = 2.0f;
+	private static final float STUCK_VELOCITY_LIMIT = 0.1f;
+
+	// Pre-allocated temp vectors (ZERO ALOKACJI w pętli)
+	private Vector3 tempPos = new Vector3();
+	private Vector3 tempTarget = new Vector3();
+
 	private static final float ROT_EPSILON = 0.01f;
 	private static final float MIN_ARRIVAL_TIME = 0.5f;
+	private static final float ARRIVAL_DIST = 0.3f;
+	private static final float GRAVITY = 9.8f;
 
 	@RegisterFunction
 	public void _ready()
@@ -68,10 +78,14 @@ public class NPCBase extends CharacterBody3D
 			navAgent.setPathDesiredDistance(2.0f);
 		}
 
+		// Ghost mode start: wszystkie warstwy wyłączone — NPC lata przez ściany do entrance
+		for (int i = 1; i <= 32; i++) {
+			setCollisionLayerValue(i, false);
+			setCollisionMaskValue(i, false);
+		}
+
 		rng = new RandomNumberGenerator();
 		speed = rng.randfRange(minSpeed, maxSpeed);
-
-		setGhostMode(true);
 	}
 
 	public void initialize(Node3D entrance, Node3D[] shelves, Node3D cashier, Node3D exit, Node3D spawn)
@@ -87,9 +101,7 @@ public class NPCBase extends CharacterBody3D
 		if (entrancePoint != null) {
 			state = CustomerState.STATE_TO_ENTRANCE;
 			setTarget(entrancePoint.getGlobalPosition(), true);
-			print("[NPC] " + getName() + ": " + previousState + " -> " + state + " | cel: " + formatPos(currentTarget));
-		} else {
-			print("[NPC] " + getName() + ": brak entrance - idle (manual placement)");
+			print("NPC " + getName() + " zmienił stan na: " + state);
 		}
 	}
 
@@ -103,16 +115,19 @@ public class NPCBase extends CharacterBody3D
 		}
 
 		timeSinceSpawn += (float) delta;
+		float dt = (float) delta;
 
-		var vel = getVelocity();
+		Vector3 vel = getVelocity();
+
+		// Grawitacja — tylko gdy NPC nie lata (ghostMode = false)
 		if (ghostMode) {
 			vel.setY(0f);
-		} else {
-			vel.setY(vel.getY() - (float)(9.8 * delta));
+		} else if (!isOnFloor()) {
+			vel.setY((float) vel.getY() - GRAVITY * dt);
 		}
 
 		if (isWaiting) {
-			waitTimer -= (float) delta;
+			waitTimer -= dt;
 			vel.setX(0f);
 			vel.setZ(0f);
 			setVelocity(vel);
@@ -131,22 +146,55 @@ public class NPCBase extends CharacterBody3D
 		}
 
 		if (currentTarget != null) {
-			var dist = getGlobalPosition().distanceTo(currentTarget);
-			if (dist <= arrivalThreshold && timeSinceSpawn >= MIN_ARRIVAL_TIME) {
+			// ANTI-STUCK: tylko składowa pozioma XZ (grawitacja nie może blokować detekcji)
+			float hVel = (float) Math.sqrt(
+				vel.getX() * vel.getX() + vel.getZ() * vel.getZ()
+			);
+			if (hVel < STUCK_VELOCITY_LIMIT && timeSinceSpawn >= 1.0f) {
+				stuckTimer += dt;
+				if (stuckTimer >= STUCK_THRESHOLD) {
+					resolveStuck();
+					stuckTimer = 0f;
+					vel.setX(0f);
+					vel.setZ(0f);
+					setVelocity(vel);
+					moveAndSlide();
+					return;
+				}
+			} else {
+				stuckTimer = 0f;
+			}
+
+			// Arrival check — tylko dystans XZ (Y = 0, bo setTarget blokuje Y)
+			tempPos = getGlobalPosition();
+			float dx = (float) (currentTarget.getX() - tempPos.getX());
+			float dz = (float) (currentTarget.getZ() - tempPos.getZ());
+			float distXZ = (float) Math.sqrt(dx * dx + dz * dz);
+
+			if (distXZ <= arrivalThreshold && timeSinceSpawn >= MIN_ARRIVAL_TIME) {
 				vel.setX(0f);
 				vel.setZ(0f);
 				setVelocity(vel);
 				moveAndSlide();
 				advanceState(true);
+				stuckTimer = 0f;
 				return;
 			}
 
+			// Ruch — tylko XZ. Y sterowane przez grawitację i moveAndSlide().
 			if (ghostMode) {
 				moveTowardDirect(currentTarget, vel);
 			} else if (navAgent != null) {
-				var pathPos = navAgent.getNextPathPosition();
-				if (pathPos != null && getGlobalPosition().distanceTo(pathPos) > 0.5f) {
-					moveTowardDirect(pathPos, vel);
+				Vector3 nextPos = navAgent.getNextPathPosition();
+				if (nextPos != null) {
+					float pathDx = (float) (nextPos.getX() - tempPos.getX());
+					float pathDz = (float) (nextPos.getZ() - tempPos.getZ());
+					float distToPath = (float) Math.sqrt(pathDx * pathDx + pathDz * pathDz);
+					if (distToPath > 0.5f) {
+						moveTowardDirect(nextPos, vel);
+					} else {
+						moveTowardDirect(currentTarget, vel);
+					}
 				} else {
 					moveTowardDirect(currentTarget, vel);
 				}
@@ -161,75 +209,119 @@ public class NPCBase extends CharacterBody3D
 		setVelocity(vel);
 		moveAndSlide();
 
-		var vx = (float) vel.getX();
-		var vz = (float) vel.getZ();
+		// Rotacja — tylko w osi Y, na podstawie kierunku XZ
+		float vx = (float) vel.getX();
+		float vz = (float) vel.getZ();
 		if (Math.abs(vx) > ROT_EPSILON || Math.abs(vz) > ROT_EPSILON) {
-			var rot = getRotation();
+			Vector3 rot = getRotation();
 			rot.setY((float) Math.atan2(vx, vz));
 			setRotation(rot);
 		}
 	}
 
-	// --- Navigation ---
+	// --- BEZPIECZNE PUNKTY CELOWE z BLOKADĄ OSI Y ---
 
 	protected void setTarget(Vector3 globalPos, boolean addOffset)
 	{
 		if (globalPos == null) return;
 
 		if (addOffset) {
-			var ox = rng.randfRange(-1.5f, 1.5f);
-			var oz = rng.randfRange(-1.5f, 1.5f);
-			globalPos = new Vector3(
-				globalPos.getX() + ox,
-				globalPos.getY(),
-				globalPos.getZ() + oz
-			);
+			float ox = rng.randfRange(-1.5f, 1.5f);
+			float oz = rng.randfRange(-1.5f, 1.5f);
+			tempTarget.setX(globalPos.getX() + ox);
+			tempTarget.setY(globalPos.getY());
+			tempTarget.setZ(globalPos.getZ() + oz);
+		} else {
+			tempTarget.setX(globalPos.getX());
+			tempTarget.setY(globalPos.getY());
+			tempTarget.setZ(globalPos.getZ());
 		}
 
-		currentTarget = globalPos;
 		if (navAgent != null) {
 			var map = navAgent.getNavigationMap();
 			if (map.isValid()) {
-				currentTarget = NavigationServer3D.mapGetClosestPoint(map, globalPos);
+				currentTarget = NavigationServer3D.mapGetClosestPoint(map, tempTarget);
+			} else {
+				currentTarget = new Vector3(tempTarget.getX(), tempTarget.getY(), tempTarget.getZ());
 			}
+			// BLOKADA Y: wymuś wysokość NPC, aby NavAgent nie planował pionowej ścieżki
+			tempPos = getGlobalPosition();
+			currentTarget.setY(tempPos.getY());
 			navAgent.setTargetPosition(currentTarget);
+		} else {
+			currentTarget = new Vector3(tempTarget.getX(), tempTarget.getY(), tempTarget.getZ());
+			tempPos = getGlobalPosition();
+			currentTarget.setY(tempPos.getY());
 		}
 	}
+
+	// --- ANTI-STUCK: losowy punkt w promieniu 5m, przepuszczony przez mapGetClosestPoint ---
+
+	private void resolveStuck()
+	{
+		tempPos = getGlobalPosition();
+		float ox = rng.randfRange(-5.0f, 5.0f);
+		float oz = rng.randfRange(-5.0f, 5.0f);
+		tempTarget.setX(tempPos.getX() + ox);
+		tempTarget.setY(tempPos.getY());
+		tempTarget.setZ(tempPos.getZ() + oz);
+
+		if (navAgent != null) {
+			var map = navAgent.getNavigationMap();
+			if (map.isValid()) {
+				currentTarget = NavigationServer3D.mapGetClosestPoint(map, tempTarget);
+			} else {
+				currentTarget = new Vector3(tempTarget.getX(), tempTarget.getY(), tempTarget.getZ());
+			}
+			currentTarget.setY(tempPos.getY());
+			navAgent.setTargetPosition(currentTarget);
+		} else {
+			currentTarget = new Vector3(tempTarget.getX(), tempTarget.getY(), tempTarget.getZ());
+			currentTarget.setY(tempPos.getY());
+		}
+
+		stuckTimer = 0f;
+	}
+
+	// --- Pomocnicze ---
 
 	protected void setGhostMode(boolean enabled)
 	{
 		ghostMode = enabled;
 		if (enabled) {
-			for (int i = 1; i <= 4; i++) {
+			for (int i = 1; i <= 32; i++) {
 				setCollisionLayerValue(i, false);
 				setCollisionMaskValue(i, false);
 			}
 		} else {
-			setCollisionLayerValue(1, false);
+			for (int i = 1; i <= 32; i++) {
+				setCollisionLayerValue(i, false);
+				setCollisionMaskValue(i, false);
+			}
+			// NPC = warstwa 2, maska = warstwa 1 (tylko podłoga)
+			// Podłoga ma już collision_mask(2)=true przez patchEnvironmentCollision
 			setCollisionLayerValue(2, true);
-			setCollisionLayerValue(3, false);
-			setCollisionLayerValue(4, false);
-
 			setCollisionMaskValue(1, true);
-			setCollisionMaskValue(2, false);
-			setCollisionMaskValue(3, false);
-			setCollisionMaskValue(4, false);
 		}
 	}
 
 	private void moveTowardDirect(Vector3 target, Vector3 vel)
 	{
 		if (target == null) return;
-		var dx = (float) target.getX() - (float) getGlobalPosition().getX();
-		var dz = (float) target.getZ() - (float) getGlobalPosition().getZ();
-		var dist = (float) Math.sqrt(dx * dx + dz * dz);
+
+		tempPos = getGlobalPosition();
+		float dx = (float) (target.getX() - tempPos.getX());
+		float dz = (float) (target.getZ() - tempPos.getZ());
+		float dist = (float) Math.sqrt(dx * dx + dz * dz);
+
+		// Ustawia TYLKO X i Z — Y zostawione grawitacji i moveAndSlide()
 		if (dist >= ARRIVAL_DIST) {
 			vel.setX((dx / dist) * speed);
 			vel.setZ((dz / dist) * speed);
 		}
 	}
 
-	// --- State machine ---
+	// --- State Machine ---
 
 	private void advanceState(boolean fromArrival)
 	{
@@ -242,8 +334,7 @@ public class NPCBase extends CharacterBody3D
 		}
 
 		if (previousState != state) {
-			print("[NPC] " + getName() + ": " + previousState + " -> " + state + " | cel: " + formatPos(currentTarget));
-			print(getName() + " status: " + state + " (wait=" + isWaiting + ")");
+			print("NPC " + getName() + " zmienił stan na: " + state);
 		}
 	}
 
@@ -252,7 +343,7 @@ public class NPCBase extends CharacterBody3D
 		switch (state) {
 			case STATE_TO_ENTRANCE:
 				if (currentTarget != null) {
-					var pos = getGlobalPosition();
+					Vector3 pos = getGlobalPosition();
 					pos.setY(currentTarget.getY());
 					setGlobalPosition(pos);
 				}
@@ -338,7 +429,7 @@ public class NPCBase extends CharacterBody3D
 			return;
 		}
 		int idx = rng.randiRange(0, shelfWaypoints.length - 1);
-		var shelf = shelfWaypoints[idx];
+		Node3D shelf = shelfWaypoints[idx];
 		if (shelf != null) {
 			setTarget(shelf.getGlobalPosition(), true);
 		}
@@ -358,7 +449,7 @@ public class NPCBase extends CharacterBody3D
 
 	// --- Despawn ---
 
-	private void notifyDespawn()
+	protected void notifyDespawn()
 	{
 		if (spawnerRef != null) {
 			spawnerRef.removeNpc(this);
@@ -371,11 +462,5 @@ public class NPCBase extends CharacterBody3D
 	public void damage(int points)
 	{
 		health -= points;
-	}
-
-	private static String formatPos(Vector3 p)
-	{
-		if (p == null) return "null";
-		return "(" + String.format("%.1f", p.getX()) + ", " + String.format("%.1f", p.getZ()) + ")";
 	}
 }
