@@ -26,7 +26,8 @@ properties = [
 	escaped_label,
 	resolved_label,
 	game_over_label,
-	shift_complete_label
+	shift_complete_label,
+	summary_text
 ]
 functions = [
     _ready
