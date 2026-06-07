@@ -17,8 +17,7 @@ signals = [
     
 ]
 properties = [
-    max_escapes_to_lose,
-	shift_duration_seconds
+    max_escapes_to_lose
 ]
 functions = [
     _process,
