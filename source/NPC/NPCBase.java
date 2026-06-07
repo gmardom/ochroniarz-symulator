@@ -21,7 +21,8 @@ public class NPCBase extends CharacterBody3D
 		STATE_AT_CASHIER,
 		STATE_TO_EXIT,
 		STATE_TO_SPAWN,
-		STATE_DESPAWN
+		STATE_DESPAWN,
+		STATE_KNOCKED_OUT
 	}
 
 	@RegisterProperty @Export public float health = 100f;
