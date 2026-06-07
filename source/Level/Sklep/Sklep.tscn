@@ -114,6 +114,8 @@ shape = SubResource("BoxShape3D_n5fc8")
 [node name="Podloga2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Podloga2"]
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
@@ -125,9 +127,12 @@ shape = SubResource("BoxShape3D_n5fc8")
 
 [node name="Brama" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -62)
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Brama"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+visible = false
 shape = SubResource("BoxShape3D_sx23t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Brama"]
@@ -149,7 +154,6 @@ shape = SubResource("BoxShape3D_d8bcj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana2"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
-visible = false
 mesh = SubResource("PlaneMesh_1fkmm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
