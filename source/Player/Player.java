@@ -89,7 +89,8 @@ public class Player extends CharacterBody3D
 		if (neck != null) {
 			var position = getPosition();
 			position.setY(position.getY() + eyeLevel);
-			neck.setPosition(lerp(neck.getPosition(), position, delta * CAMERA_SMOOTHNESS));
+			var t = (float) Math.min(delta * CAMERA_SMOOTHNESS, 1.0);
+			neck.setPosition(lerp(neck.getPosition(), position, t));
 		}
 
 		if (Input.isActionJustPressed("attack")) {
