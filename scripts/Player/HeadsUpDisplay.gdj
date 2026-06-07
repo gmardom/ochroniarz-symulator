@@ -21,7 +21,12 @@ properties = [
     crosshair,
 	interraction_text,
 	clock_label,
-	shift_summary_panel
+	shift_summary_panel,
+	status_label,
+	escaped_label,
+	resolved_label,
+	game_over_label,
+	shift_complete_label
 ]
 functions = [
     _ready

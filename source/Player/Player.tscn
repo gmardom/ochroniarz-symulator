@@ -163,11 +163,16 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
 shape = SubResource("CapsuleShape3D_tqv4n")
 
-[node name="HeadsUpDisplay" type="CanvasLayer" parent="." node_paths=PackedStringArray("crosshair", "clock_label", "shift_summary_panel")]
+[node name="HeadsUpDisplay" type="CanvasLayer" parent="." node_paths=PackedStringArray("crosshair", "clock_label", "shift_summary_panel", "status_label", "escaped_label", "resolved_label", "game_over_label", "shift_complete_label")]
 script = ExtResource("2_q1qib")
 crosshair = NodePath("Crosshair")
 clock_label = NodePath("ClockLabel")
 shift_summary_panel = NodePath("ShiftSummaryPanel")
+status_label = NodePath("StatusLabel")
+escaped_label = NodePath("EscapedLabel")
+resolved_label = NodePath("ResolvedLabel")
+game_over_label = NodePath("GameOverLabel")
+shift_complete_label = NodePath("ShiftCompleteLabel")
 metadata/_custom_type_script = "uid://dmreec0t0wh53"
 
 [node name="Crosshair" type="ColorRect" parent="HeadsUpDisplay"]
@@ -220,6 +225,60 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="StatusLabel" type="Label" parent="HeadsUpDisplay"]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 24
+text = "Shift: INACTIVE"
+
+[node name="EscapedLabel" type="Label" parent="HeadsUpDisplay"]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 18
+text = "Escaped: 0"
+
+[node name="ResolvedLabel" type="Label" parent="HeadsUpDisplay"]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 65.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 18
+text = "Resolved: 0"
+
+[node name="GameOverLabel" type="Label" parent="HeadsUpDisplay"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="ShiftCompleteLabel" type="Label" parent="HeadsUpDisplay"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 28
+text = "SHIFT COMPLETE"
+horizontal_alignment = 1
 
 [node name="StaminaPanel" type="Panel" parent="HeadsUpDisplay"]
 anchors_preset = 7
