@@ -3,6 +3,7 @@ package Spawner;
 import java.util.ArrayList;
 import java.util.List;
 
+import Game.GameManager;
 import NPC.NPCBase;
 import godot.annotation.*;
 import godot.api.*;
@@ -44,6 +45,8 @@ public class PeasantSpawner extends Node3D implements NPCBase.NpcSpawner
 	@RegisterFunction
 	public void _process(double delta)
 	{
+		if (GameManager.I() != null && !GameManager.I().isShiftActive()) return;
+
 		spawnTimer -= (float) delta;
 		if (spawnTimer <= 0f) {
 			spawnTimer = rng.randfRange(minSpawnInterval, maxSpawnInterval);
