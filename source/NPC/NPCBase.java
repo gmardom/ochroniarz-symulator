@@ -124,6 +124,16 @@ public class NPCBase extends CharacterBody3D
 
 		Vector3 vel = getVelocity();
 
+		// STATE_KNOCKED_OUT: tylko grawitacja, bez AI (Faza 3)
+		if (state == CustomerState.STATE_KNOCKED_OUT) {
+			if (!ghostMode && !isOnFloor()) {
+				vel.setY((float) vel.getY() - GRAVITY * dt);
+			}
+			setVelocity(vel);
+			moveAndSlide();
+			return;
+		}
+
 		// Grawitacja — tylko gdy NPC nie lata (ghostMode = false)
 		if (ghostMode) {
 			vel.setY(0f);
