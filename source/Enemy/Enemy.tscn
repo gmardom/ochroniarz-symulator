@@ -10,7 +10,7 @@
 albedo_color = Color(0.099985994, 0.099985994, 0.099985994, 1)
 
 [node name="Enemy" type="CharacterBody3D"]
-collision_layer = 3
+collision_layer = 7
 script = ExtResource("1_x105a")
 metadata/_custom_type_script = "uid://be3bdglh1u53c"
 
@@ -22,3 +22,7 @@ shape = SubResource("CapsuleShape3D_xoiij")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_apb8a")
 material = SubResource("StandardMaterial3D_bobpw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5

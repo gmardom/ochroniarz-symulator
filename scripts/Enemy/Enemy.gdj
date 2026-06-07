@@ -6,7 +6,8 @@ fqName = Enemy.Enemy
 relativeSourcePath = source/Enemy/Enemy.java
 baseType = CharacterBody3D
 supertypes = [
-    godot.api.CharacterBody3D,
+    NPC.NPCBase,
+	godot.api.CharacterBody3D,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -21,9 +22,18 @@ signals = [
     
 ]
 properties = [
-    health
+    steal_chance,
+	steal_duration,
+	stolen_speed_multiplier,
+	max_health,
+	hostile,
+	animation_player,
+	speed,
+	min_speed,
+	max_speed,
+	arrival_threshold
 ]
 functions = [
-    _process,
+    _physics_process,
 	_ready
 ]

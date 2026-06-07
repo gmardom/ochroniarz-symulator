@@ -171,10 +171,10 @@ autoplay = true
 bus = &"Music"
 
 [node name="GameSelect" type="VBoxContainer" parent="."]
-offset_left = 365.0
-offset_top = 438.0
-offset_right = 816.0
-offset_bottom = 635.0
+offset_left = 366.0
+offset_top = 463.0
+offset_right = 817.0
+offset_bottom = 660.0
 
 [node name="NewGameButton" type="Button" parent="GameSelect"]
 layout_mode = 2
