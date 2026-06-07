@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player/Player.gdj" id="1_tqv4n"]
 [ext_resource type="Script" uid="uid://igrtwhp5t4gb" path="res://source/Player/Raycast.java" id="2_ip85u"]
 [ext_resource type="Script" uid="uid://dmreec0t0wh53" path="res://scripts/Player/HeadsUpDisplay.gdj" id="2_q1qib"]
-[ext_resource type="Script" path="res://scripts/Player/StaminaManager.gdj" id="3_pk4l6"]
+[ext_resource type="Script" uid="uid://db1nud1lskvii" path="res://scripts/Player/StaminaManager.gdj" id="3_pk4l6"]
 
 [sub_resource type="Animation" id="Animation_q1qib"]
 resource_name = "Attack"
@@ -121,7 +121,7 @@ height = 0.8
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tqv4n"]
 height = 1.82
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast", "weapon_animation_player")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast", "weapon_animation_player", "stamina_manager")]
 collision_mask = 5
 script = ExtResource("1_tqv4n")
 neck = NodePath("Neck")
@@ -130,6 +130,7 @@ mouse_sensitivity = 0.001
 hud = NodePath("HeadsUpDisplay")
 interaction_ray_cast = NodePath("Neck/InteractionRayCast")
 weapon_animation_player = NodePath("Neck/Weapon/AnimationPlayer")
+stamina_manager = NodePath("StaminaManager")
 metadata/_custom_type_script = "uid://ceteilad77rgr"
 
 [node name="Neck" type="Node3D" parent="."]
@@ -151,7 +152,7 @@ libraries = {
 }
 
 [node name="Model" type="Node3D" parent="Neck/Weapon"]
-transform = Transform3D(1, 0, 0, 0, 0.9848074, 0.17364812, 0, -0.17364812, 0.9848074, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9848073, 0.1736481, 0, -0.1736481, 0.9848073, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Weapon/Model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
@@ -221,7 +222,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="StaminaPanel" type="Panel" parent="HeadsUpDisplay"]
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -236,9 +237,7 @@ mouse_filter = 2
 
 [node name="StaminaBar" type="ProgressBar" parent="HeadsUpDisplay/StaminaPanel"]
 layout_mode = 1
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
@@ -252,5 +251,3 @@ show_percentage = false
 
 [node name="StaminaManager" type="Node" parent="."]
 script = ExtResource("3_pk4l6")
-stamina_bar = NodePath("../HeadsUpDisplay/StaminaPanel/StaminaBar")
-stamina_panel = NodePath("../HeadsUpDisplay/StaminaPanel")
