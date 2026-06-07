@@ -5,6 +5,10 @@ import godot.annotation.*;
 
 @RegisterClass
 public class Enemy extends NPCBase
+	@RegisterProperty @Export public float steal_chance = 0.4f;
+	@RegisterProperty @Export public float steal_duration = 6.0f;
+	@RegisterProperty @Export public float stolen_speed_multiplier = 0.5f;
+
 {
 	@RegisterFunction
 	@Override

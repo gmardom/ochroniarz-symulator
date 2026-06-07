@@ -22,8 +22,12 @@ signals = [
     
 ]
 properties = [
-    health,
+    steal_chance,
+	steal_duration,
+	stolen_speed_multiplier,
+	max_health,
 	hostile,
+	animation_player,
 	speed,
 	min_speed,
 	max_speed,
