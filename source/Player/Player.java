@@ -2,6 +2,7 @@ package Player;
 
 import Game.*;
 import Enemy.*;
+import NPC.*;
 import godot.annotation.*;
 import godot.api.*;
 import godot.core.*;
@@ -40,6 +41,9 @@ public class Player extends CharacterBody3D
 
 	@RegisterProperty @Export public AnimationPlayer weaponAnimationPlayer;
 	private boolean attacking = false;
+
+	@RegisterProperty @Export public StaminaManager staminaManager;
+	private boolean isSprinting = false;
 
 	@RegisterFunction
 	public void _ready()
@@ -85,7 +89,11 @@ public class Player extends CharacterBody3D
 		}
 
 		if (Input.isActionJustPressed("attack")) {
-			if (weaponAnimationPlayer != null && !weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) {
+			if (staminaManager != null && !staminaManager.canAttack()) {
+				print("Not enough stamina to attack!");
+			} else if (weaponAnimationPlayer != null && !weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) {
+				if (staminaManager != null) staminaManager.consume(staminaManager.attackCost);
+
 				weaponAnimationPlayer.stop();
 				weaponAnimationPlayer.play("Attack");
 				weaponAnimationPlayer.queue("Idle");
@@ -124,9 +132,14 @@ public class Player extends CharacterBody3D
 			velocity.setY(jumpVelocity);
 		}
 
-		if (Input.isActionPressed("sprint") && inputDir.getY() < 0) {
+		isSprinting = Input.isActionPressed("sprint") && inputDir.getY() < 0;
+		if (isSprinting && staminaManager != null && !staminaManager.canSprint()) {
+			isSprinting = false;
+		}
+		if (isSprinting) {
 			speed = runSpeed;
 			fov *= runFovModifier;
+			if (staminaManager != null) staminaManager.consume(staminaManager.decayRate * (float) delta);
 		}
 
 		if (!direction.isZeroApprox()) {

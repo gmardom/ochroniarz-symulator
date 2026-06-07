@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6mx0dql6ayym"]
+[gd_scene load_steps=12 format=3 uid="uid://c6mx0dql6ayym"]
 
 [ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://scripts/Player/Player.gdj" id="1_tqv4n"]
 [ext_resource type="Script" uid="uid://igrtwhp5t4gb" path="res://source/Player/Raycast.java" id="2_ip85u"]
 [ext_resource type="Script" uid="uid://dmreec0t0wh53" path="res://scripts/Player/HeadsUpDisplay.gdj" id="2_q1qib"]
+[ext_resource type="Script" path="res://scripts/Player/StaminaManager.gdj" id="3_pk4l6"]
 
 [sub_resource type="Animation" id="Animation_q1qib"]
 resource_name = "Attack"
@@ -121,6 +122,7 @@ height = 0.8
 height = 1.82
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck", "camera", "hud", "interaction_ray_cast", "weapon_animation_player")]
+collision_mask = 5
 script = ExtResource("1_tqv4n")
 neck = NodePath("Neck")
 camera = NodePath("Neck/Camera3D")
@@ -149,7 +151,7 @@ libraries = {
 }
 
 [node name="Model" type="Node3D" parent="Neck/Weapon"]
-transform = Transform3D(1, 0, 0, 0, 0.98480743, 0.17364813, 0, -0.17364813, 0.98480743, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9848074, 0.17364812, 0, -0.17364812, 0.9848074, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Weapon/Model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
@@ -217,3 +219,38 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="StaminaPanel" type="Panel" parent="HeadsUpDisplay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -30.0
+offset_right = 110.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="StaminaBar" type="ProgressBar" parent="HeadsUpDisplay/StaminaPanel"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+show_percentage = false
+
+[node name="StaminaManager" type="Node" parent="."]
+script = ExtResource("3_pk4l6")
+stamina_bar = NodePath("../HeadsUpDisplay/StaminaPanel/StaminaBar")
+stamina_panel = NodePath("../HeadsUpDisplay/StaminaPanel")

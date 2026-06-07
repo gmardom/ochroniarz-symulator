@@ -1,16 +1,12 @@
 // THIS FILE IS GENERATED! DO NOT EDIT OR DELETE IT. EDIT OR DELETE THE ASSOCIATED SOURCE CODE FILE INSTEAD
 // Note: You can however freely move this file inside your godot project if you want. Keep in mind however, that if you rename the originating source code file, this file will be deleted and regenerated as a new file instead of being updated! Other modifications to the source file however, will result in this file being updated.
 
-registeredName = Player
-fqName = Player.Player
-relativeSourcePath = source/Player/Player.java
-baseType = CharacterBody3D
+registeredName = StaminaManager
+fqName = Player.StaminaManager
+relativeSourcePath = source/Player/StaminaManager.java
+baseType = Node
 supertypes = [
-    godot.api.CharacterBody3D,
-	godot.api.PhysicsBody3D,
-	godot.api.CollisionObject3D,
-	godot.api.Node3D,
-	godot.api.Node,
+    godot.api.Node,
 	godot.api.Object,
 	godot.core.KtObject,
 	godot.common.interop.NativeWrapper,
@@ -21,27 +17,15 @@ signals = [
     
 ]
 properties = [
-    neck,
-	camera,
-	base_eye_level,
-	crouch_eye_level,
-	walk_speed,
-	run_speed,
-	mouse_sensitivity,
-	jump_peak_time,
-	jump_fall_time,
-	jump_height,
-	jump_distance,
-	fov_change_speed,
-	run_fov_modifier,
-	hud,
-	interaction_ray_cast,
-	weapon_animation_player,
-	stamina_manager
+    max_stamina,
+	decay_rate,
+	regen_rate,
+	min_sprint_threshold,
+	attack_cost,
+	stamina_bar,
+	stamina_panel
 ]
 functions = [
     _process,
-	_physics_process,
-	_ready,
-	_unhandled_input
+	_ready
 ]
