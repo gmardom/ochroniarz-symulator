@@ -61,6 +61,10 @@ public class Player extends CharacterBody3D
 			weaponAnimationPlayer.stop();
 			weaponAnimationPlayer.play("Idle");
 		}
+
+		if (interactionRayCast != null) {
+			interactionRayCast.setCollisionMaskValue(2, true);
+		}
 	}
 
 	@RegisterFunction
