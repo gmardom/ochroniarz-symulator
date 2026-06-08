@@ -41,6 +41,7 @@ public class Player extends CharacterBody3D
 
 	@RegisterProperty @Export public AnimationPlayer weaponAnimationPlayer;
 	private boolean attacking = false;
+	private boolean attackAnimationDone = true;
 
 	@RegisterProperty @Export public StaminaManager staminaManager;
 	private boolean isSprinting = false;
@@ -124,6 +125,11 @@ public class Player extends CharacterBody3D
 		if (isSlipping || isDragging) return;
 
 		if (Input.isActionJustPressed("attack")) {
+			if (weaponAnimationPlayer != null && weaponAnimationPlayer.isPlaying()
+					&& weaponAnimationPlayer.getCurrentAnimation().equals("Attack")) {
+				print("Player attack missed — animation not done");
+				return;
+			}
 			if (staminaManager != null && !staminaManager.canAttack()) {
 				print("Player attack missed — not enough stamina");
 				return;

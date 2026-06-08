@@ -154,7 +154,6 @@ shape = SubResource("BoxShape3D_d8bcj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sciana2"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 4, -62)
-visible = false
 mesh = SubResource("PlaneMesh_1fkmm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sciana2"]
