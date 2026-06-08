@@ -15,7 +15,8 @@ public class HeadsUpDisplay extends CanvasLayer
 	@RegisterProperty @Export public Label resolvedLabel;
 	@RegisterProperty @Export public Label gameOverLabel;
 	@RegisterProperty @Export public Label shiftCompleteLabel;
-	@RegisterProperty @Export public Label summaryText;
+
+	private Label summaryText;
 
 	@RegisterFunction
 	public void _ready()
@@ -24,6 +25,7 @@ public class HeadsUpDisplay extends CanvasLayer
 		if (shiftSummaryPanel != null) shiftSummaryPanel.setVisible(false);
 		if (gameOverLabel != null) gameOverLabel.setVisible(false);
 		if (shiftCompleteLabel != null) shiftCompleteLabel.setVisible(false);
+		summaryText = (Label) getNode("ShiftSummaryPanel/SummaryText");
 		updateStats(0, 0);
 		if (statusLabel != null) statusLabel.setText("Shift: INACTIVE");
 	}

@@ -3,7 +3,7 @@ package Game;
 import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.api.Node;
-import godot.global.GD;
+import godot.api.Input;
 
 @RegisterClass
 public class GameLoop extends Node
@@ -45,7 +45,6 @@ public class GameLoop extends Node
 		if (timeAccumulator >= HOUR_DURATION) {
 			timeAccumulator -= HOUR_DURATION;
 			currentHour++;
-			GD.print("[GameLoop] Godzina: " + currentHour + " | hud: " + (hud != null ? "OK" : "NULL"));
 			if (hud != null) hud.updateClock(currentHour);
 
 			if (currentHour >= WORK_HOURS) {
@@ -62,7 +61,6 @@ public class GameLoop extends Node
 		caughtThisShift = 0;
 		robbedThisShift = 0;
 		setProcess(true);
-		GD.print("[GameLoop] startShift | hud: " + (hud != null ? "OK" : "NULL"));
 		if (hud != null) hud.updateClock(0);
 	}
 
@@ -76,10 +74,6 @@ public class GameLoop extends Node
 		saveData.day++;
 
 		if (hud != null) hud.showShiftSummary(caughtThisShift, robbedThisShift);
-
-		if (GameManager.I() != null) {
-			GameManager.I().completeShift();
-		}
 	}
 
 	public void saveGame()

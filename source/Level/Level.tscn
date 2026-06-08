@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bp4eak0pu113p"]
+[gd_scene load_steps=9 format=3 uid="uid://bp4eak0pu113p"]
 
 [ext_resource type="PackedScene" uid="uid://c6mx0dql6ayym" path="res://source/Player/Player.tscn" id="1_54pob"]
-[ext_resource type="Script" uid="uid://d3hcumto2x3uf" path="res://source/Level/Level.java" id="1_tqhmp"]
 [ext_resource type="PackedScene" uid="uid://dkcmhwnvxh7c6" path="res://source/Level/Sklep/Sklep.tscn" id="2_tonrk"]
 [ext_resource type="PackedScene" uid="uid://bws341i6dt5vn" path="res://source/Enemy/Enemy.tscn" id="3_1es6e"]
 [ext_resource type="Script" uid="uid://4e0e77uryt4k" path="res://scripts/Spawner/PeasantSpawner.gdj" id="4_oiiaj"]
@@ -19,7 +18,6 @@ ssr_enabled = true
 ssao_enabled = true
 
 [node name="Level" type="Node3D"]
-script = ExtResource("1_tqhmp")
 
 [node name="PeasantSpawner" type="Node3D" parent="." node_paths=PackedStringArray("spawn_point", "entrance_point", "cashier_point", "exit_point", "shelf_waypoints_parent")]
 script = ExtResource("4_oiiaj")
