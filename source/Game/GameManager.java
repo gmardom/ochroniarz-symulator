@@ -34,7 +34,7 @@ public final class GameManager extends Node
 	public State initialState = State.Starting;
 	public State currentState = State.Nil;
 
-	// --- Gameplay loop state (Faza 1, rozszerzone Faza 6) ---
+	// --- Gameplay loop state ---
 	public enum GameState
 	{
 		WAITING_FOR_START,
@@ -49,12 +49,8 @@ public final class GameManager extends Node
 	private int escapedThievesCount = 0;
 	@RegisterProperty @Export public int max_escapes_to_lose = 5;
 
-	// --- Resolved incidents counter (Faza 5/6) ---
+	// --- Resolved incidents counter ---
 	private int resolvedIncidentsCount = 0;
-
-	// --- Shift timer (Faza 6) ---
-	@RegisterProperty @Export public float shiftDurationSeconds = 300f;
-	private float shiftTimer = 0f;
 
 	// --- HUD reference ---
 	public HeadsUpDisplay gameHud;
@@ -82,13 +78,7 @@ public final class GameManager extends Node
 	@RegisterFunction
 	public void _process(double delta)
 	{
-		if (gameState == GameState.SHIFT_ACTIVE) {
-			shiftTimer -= (float) delta;
-			if (shiftTimer <= 0f) {
-				completeShift();
-			}
-		}
-
+		// Czasem zmiany zarządza wyłącznie GameLoop — tu tylko obsługa pauzy
 		switch (currentState) {
 		case Playing -> {
 			if (Input.isActionJustPressed("ui_cancel")) {
@@ -163,7 +153,6 @@ public final class GameManager extends Node
 		gameState = GameState.SHIFT_ACTIVE;
 		escapedThievesCount = 0;
 		resolvedIncidentsCount = 0;
-		shiftTimer = shiftDurationSeconds;
 		GameLoop.I().startShift();
 		GD.print("Shift started");
 
@@ -178,12 +167,12 @@ public final class GameManager extends Node
 		GD.print("Zmiana zakonczona — stan: WAITING_FOR_START");
 	}
 
-	private void completeShift()
+	// Wywoływane przez GameLoop po upływie 8 godzin
+	public void completeShift()
 	{
 		if (gameState != GameState.SHIFT_ACTIVE) return;
 
 		gameState = GameState.SHIFT_COMPLETE;
-		GameLoop.I().endShift();
 		GD.print("Shift completed");
 
 		if (gameHud != null) gameHud.showShiftComplete(resolvedIncidentsCount, escapedThievesCount);

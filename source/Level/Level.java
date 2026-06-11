@@ -1,6 +1,7 @@
 package Level;
 
 import Game.GameLoop;
+import Game.GameManager;
 import Player.HeadsUpDisplay;
 import godot.annotation.*;
 import godot.api.*;
@@ -12,10 +13,16 @@ public class Level extends Node3D
 	public void _ready()
 	{
 		var gameLoop = (GameLoop) getNode("GameLoop");
-		var hud = (HeadsUpDisplay) getNode("../Player/HeadsUpDisplay");
+
+		Node playerNode = getNodeOrNull("Player");
+		HeadsUpDisplay hud = null;
+		if (playerNode != null) {
+			hud = (HeadsUpDisplay) ((Node) playerNode).getNodeOrNull("HeadsUpDisplay");
+		}
 
 		if (gameLoop != null && hud != null) {
 			gameLoop.hud = hud;
+			GameManager.I().gameHud = hud;
 		}
 	}
 }
