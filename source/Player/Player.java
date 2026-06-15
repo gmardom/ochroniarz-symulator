@@ -1,6 +1,7 @@
 package Player;
 
 import Game.*;
+import Game.Rzeczy.GrateArea.*;
 import Enemy.*;
 import NPC.*;
 import godot.annotation.*;
@@ -53,6 +54,16 @@ public class Player extends CharacterBody3D
 
 	@RegisterProperty @Export public float dragMoveSpeedMultiplier = 0.45f;
 	@RegisterProperty @Export public Vector3 dragOffset = new Vector3(0, 0, 1.5f);
+
+	// Puddle slowdown state
+	private float speedMultiplier = 1.0f;
+	private boolean isSlowed = false;
+	private float slowTimer = 0f;
+	private int puddleCount = 0;
+
+	// Grate imprisonment state
+	private boolean isInGrateZone = false;
+	private GrateArea currentGrate = null;
 
 	public boolean isSprinting() { return isSprinting; }
 
@@ -122,7 +133,17 @@ public class Player extends CharacterBody3D
 			}
 		}
 
-		if (isSlipping || isDragging) return;
+		// Puddle slow timer — ticks even while slipping/dragging
+		if (isSlowed && slowTimer > 0) {
+			slowTimer -= (float) delta;
+			if (slowTimer <= 0f && puddleCount <= 0) {
+				speedMultiplier = 1.0f;
+				isSlowed = false;
+				print("Player speed restored (timer expired)");
+			}
+		}
+
+		//if (isSlipping || isDragging) return;
 
 		if (Input.isActionJustPressed("attack")) {
 			if (weaponAnimationPlayer != null && weaponAnimationPlayer.isPlaying()
@@ -162,7 +183,7 @@ public class Player extends CharacterBody3D
 		if (GameManager.I().currentState == GameManager.State.Paused) return;
 
 		var velocity = getVelocity();
-		var speed = walkSpeed;
+		var speed = walkSpeed * speedMultiplier;
 		var fov = base_fov;
 
 		var inputDir = Input.getVector("move_left", "move_right", "move_forward", "move_backward");
@@ -186,12 +207,12 @@ public class Player extends CharacterBody3D
 			isSprinting = false;
 		}
 		if (isSprinting) {
-			speed = runSpeed;
+			speed = runSpeed * speedMultiplier;
 			fov *= runFovModifier;
 			if (staminaManager != null) staminaManager.consume(staminaManager.decayRate * (float) delta);
 		}
 		if (isDragging) {
-			speed = walkSpeed * dragMoveSpeedMultiplier;
+			speed = walkSpeed * dragMoveSpeedMultiplier * speedMultiplier;
 		}
 
 		if (!direction.isZeroApprox()) {
@@ -278,6 +299,14 @@ public class Player extends CharacterBody3D
 		} else {
 			if (hud != null) hud.stopInteraction();
 		}
+
+		// Grate imprisonment: F to imprison dragged enemy behind bars
+		if (isDragging && draggedEnemy != null && isInGrateZone && currentGrate != null) {
+			if (hud != null) hud.startInteraction("Odstaw za kraty");
+			if (Input.isActionJustPressed("interact")) {
+				imprisonEnemyAtGrate();
+			}
+		}
 	}
 
 	public void dropDeliver()
@@ -300,5 +329,80 @@ public class Player extends CharacterBody3D
 		isSlipping = true;
 		slipTimer = duration;
 		print("Player slipped");
+	}
+
+	// --- Puddle Slowdown ---
+
+	public void enterPuddle(float factor, float duration)
+	{
+		puddleCount++;
+		if (!isSlowed) {
+			speedMultiplier = factor;
+			isSlowed = true;
+		}
+		if (duration > 0) {
+			slowTimer = duration;
+		}
+		print("Player entered puddle — slow=" + isSlowed + " count=" + puddleCount);
+	}
+
+	public void exitPuddle(boolean restoreImmediately)
+	{
+		puddleCount--;
+		if (puddleCount <= 0) {
+			puddleCount = 0;
+			if (restoreImmediately) {
+				restoreSpeed();
+				print("Player speed restored (left puddle)");
+			}
+		}
+	}
+
+	private void restoreSpeed()
+	{
+		speedMultiplier = 1.0f;
+		isSlowed = false;
+		slowTimer = 0f;
+	}
+
+	// --- Grate Imprisonment ---
+
+	public void setCurrentGrate(GrateArea grate)
+	{
+		currentGrate = grate;
+		isInGrateZone = true;
+	}
+
+	public void clearCurrentGrate(GrateArea grate)
+	{
+		if (currentGrate == grate) {
+			currentGrate = null;
+			isInGrateZone = false;
+		}
+	}
+
+	public void imprisonEnemyAtGrate()
+	{
+		if (!isDragging || draggedEnemy == null || currentGrate == null) return;
+
+		print("Enemy imprisoned at grate");
+
+		Vector3 gratePos = currentGrate.getGlobalPosition();
+		Vector3 offset = currentGrate.imprisonOffset;
+		draggedEnemy.setGlobalPosition(new Vector3(
+			gratePos.getX() + offset.getX(),
+			gratePos.getY() + offset.getY(),
+			gratePos.getZ() + offset.getZ()
+		));
+
+		draggedEnemy.setImprisoned(true);
+		draggedEnemy = null;
+		isDragging = false;
+
+		if (hud != null) hud.stopInteraction();
+
+		if (GameManager.I() != null) {
+			GameManager.I().registerResolvedIncident();
+		}
 	}
 }

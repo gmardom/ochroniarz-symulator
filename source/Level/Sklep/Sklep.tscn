@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=40 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/Szafka/szafka.tscn" id="1_5aeng"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bh6hlsjosrll1" path="res://source/Level/Rzeczy/Desk/desk.glb" id="6_sx23t"]
 [ext_resource type="PackedScene" uid="uid://ckd187oank0kw" path="res://source/Level/Rzeczy/PC/PC.tscn" id="7_sx23t"]
 [ext_resource type="PackedScene" uid="uid://bs6a6moavxvxy" path="res://source/Level/Rzeczy/Bars/prison_cell_door.glb" id="8_5rcug"]
+[ext_resource type="Script" uid="uid://df7xne3mkbowu" path="res://scripts/Game/Rzeczy/GrateArea/GrateArea.gdj" id="9_v75if"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -98,6 +99,9 @@ size = Vector3(4, 0, 32)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5aeng"]
 size = Vector3(4, 0, 32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uatm0"]
+size = Vector3(1.1913452, 2.6014404, 0.31188965)
 
 [node name="Sklep" type="Node3D"]
 
@@ -979,4 +983,12 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39, 
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.17082, 1.0621893, 64.00259)
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("8_5rcug")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 29, 0, 64)
+transform = Transform3D(-9.051075e-08, 0, -0.99999994, 0, 1.3340774, 0, 2.0706444, 0, -4.3711385e-08, 29, 0, 64)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Sketchfab_Scene"]
+transform = Transform3D(1, 0, 1.7763568e-15, 0, 0.99999994, 0, 1.4210855e-14, 0, 1, 0, 0, 0)
+script = ExtResource("9_v75if")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sketchfab_Scene/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 1.563194e-12, 0, 1, 0.042877197, 0.8007203, -0.074279785)
+shape = SubResource("BoxShape3D_uatm0")
