@@ -246,7 +246,7 @@ public class Player extends CharacterBody3D
 			dropDeliver();
 		}
 
-		if (!isSlipping && !isDragging && GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
+		if (!isSlipping && GameLoop.I() != null && interactionRayCast != null && interactionRayCast.isColliding()) {
 			var collider = (Node3D) interactionRayCast.getCollider();
 
 			if (collider.isInGroup("interactable")) {
@@ -288,7 +288,7 @@ public class Player extends CharacterBody3D
 					}
 				}
 			} else if (collider instanceof Enemy enemy) {
-				if (enemy.canBeDragged()) {
+				if (!isDragging && enemy.canBeDragged()) {
 					if (hud != null) hud.startInteraction("Przeciagnij");
 					if (Input.isActionJustPressed("interact")) {
 						isDragging = true;
