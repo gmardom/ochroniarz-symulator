@@ -43,10 +43,10 @@ public class HeadsUpDisplay extends CanvasLayer
 		if (interractionText != null) interractionText.setVisible(false);
 	}
 
-	public void updateClock(int hour)
+	public void updateClock(int hour, int minute)
 	{
 		if (clockLabel != null)
-			clockLabel.setText(String.format("%02d:00", hour));
+			clockLabel.setText(String.format("%02d:%02d", hour, minute));
 	}
 
 	public void updateStats(int escaped, int resolved)

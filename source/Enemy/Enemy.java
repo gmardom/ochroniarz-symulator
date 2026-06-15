@@ -26,6 +26,7 @@ public class Enemy extends NPCBase
 	private boolean escapeRegistered = false;
 	private boolean puddleSpawned = false;
 	private boolean isBeingDragged = false;
+	private boolean isImprisoned = false;
 
 	@RegisterFunction
 	@Override
@@ -42,7 +43,7 @@ public class Enemy extends NPCBase
 
 	public boolean canBeDragged()
 	{
-		return state == CustomerState.STATE_KNOCKED_OUT && !isBeingDragged;
+		return state == CustomerState.STATE_KNOCKED_OUT && !isBeingDragged && !isImprisoned;
 	}
 
 	public void setDragged(boolean dragged)
@@ -51,6 +52,23 @@ public class Enemy extends NPCBase
 		if (dragged) {
 			setGhostMode(true);
 		}
+	}
+
+	public void setImprisoned(boolean imprisoned)
+	{
+		isImprisoned = imprisoned;
+		if (imprisoned) {
+			state = CustomerState.STATE_KNOCKED_OUT;
+			isBeingDragged = false;
+			setVelocity(new Vector3(0, 0, 0));
+			setGhostMode(true);
+			print("[Enemy] " + getName() + " Imprisoned behind grate!");
+		}
+	}
+
+	public boolean isImprisoned()
+	{
+		return isImprisoned;
 	}
 
 	public void deliver()
