@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://brnk2xvetssav"]
+[gd_scene load_steps=4 format=3 uid="uid://brnk2xvetssav"]
 
-[ext_resource type="Script" path="res://source/Game/Rzeczy/Puddle/Puddle.java" id="1_ecf2q"]
+[ext_resource type="Script" uid="uid://dv4al0ddmr5vg" path="res://source/Game/Rzeczy/Puddle/Puddle.java" id="1_ecf2q"]
+[ext_resource type="PackedScene" uid="uid://cghurtb5k5jaw" path="res://scenes/low_poly_-_puddle.glb" id="2_nutau"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tpjo"]
-size = Vector3(1, 0.05, 1)
+size = Vector3(2, 0.05, 2)
 
 [node name="Puddle" type="Node3D"]
 script = ExtResource("1_ecf2q")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_nutau")]
+transform = Transform3D(0.0034999973, 0, 0, 0, 1, 0, 0, 0, 0.003999997, 0, 0.0052194893, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 8
