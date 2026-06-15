@@ -10,11 +10,12 @@ public class GameLoop extends Node
 	private static GameLoop I = null;
 	public static GameLoop I() { return I; }
 
-	public static final float HOUR_DURATION = 3f * 60f;
+	public static final float HOUR_DURATION = 60f;
 	public static final int WORK_HOURS = 8;
 
 	private float timeAccumulator = 0f;
 	private int currentHour = 0;
+	private int lastDisplayedMinute = -1;
 	private boolean shiftActive = false;
 
 	public int caughtThisShift = 0;
@@ -44,11 +45,17 @@ public class GameLoop extends Node
 		if (timeAccumulator >= HOUR_DURATION) {
 			timeAccumulator -= HOUR_DURATION;
 			currentHour++;
-			if (hud != null) hud.updateClock(currentHour);
+			lastDisplayedMinute = -1;
 
 			if (currentHour >= 8 + WORK_HOURS) {
 				endShift();
 			}
+		}
+
+		int displayMinute = (int)(timeAccumulator / HOUR_DURATION * 60);
+		if (displayMinute != lastDisplayedMinute && displayMinute % 5 == 0) {
+			lastDisplayedMinute = displayMinute;
+			if (hud != null) hud.updateClock(currentHour, displayMinute);
 		}
 	}
 
@@ -68,10 +75,11 @@ public class GameLoop extends Node
 		shiftActive = true;
 		currentHour = 8;
 		timeAccumulator = 0f;
+		lastDisplayedMinute = -1;
 		caughtThisShift = 0;
 		robbedThisShift = 0;
 		setProcess(true);
-		if (hud != null) hud.updateClock(currentHour);
+		if (hud != null) hud.updateClock(currentHour, 0);
 	}
 
 	public void endShift()
