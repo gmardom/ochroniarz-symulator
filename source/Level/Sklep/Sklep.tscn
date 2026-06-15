@@ -1,6 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://dkcmhwnvxh7c6"]
+[gd_scene load_steps=43 format=3 uid="uid://dkcmhwnvxh7c6"]
 
 [ext_resource type="PackedScene" uid="uid://od3hnfqhsojb" path="res://source/Level/Rzeczy/Szafka/szafka.tscn" id="1_5aeng"]
+[ext_resource type="PackedScene" uid="uid://2jkhjraxeeet" path="res://source/Game/Rzeczy/Lamp/ceiling_lamp-10mb.glb" id="1_jn0wv"]
 [ext_resource type="PackedScene" uid="uid://cygvcs1k32gi3" path="res://source/Level/Rzeczy/Drzwi/Drzwi.tscn" id="2_srbli"]
 [ext_resource type="PackedScene" uid="uid://djh628rh2vxb" path="res://source/Level/Rzeczy/Kasa/cash_register.glb" id="3_vqvtp"]
 [ext_resource type="PackedScene" uid="uid://3ou676g0d6gv" path="res://source/Level/Rzeczy/lodowa/food_shop_showcase.glb" id="4_1fkmm"]
@@ -9,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ckd187oank0kw" path="res://source/Level/Rzeczy/PC/PC.tscn" id="7_sx23t"]
 [ext_resource type="PackedScene" uid="uid://bs6a6moavxvxy" path="res://source/Level/Rzeczy/Bars/prison_cell_door.glb" id="8_5rcug"]
 [ext_resource type="Script" uid="uid://df7xne3mkbowu" path="res://scripts/Game/Rzeczy/GrateArea/GrateArea.gdj" id="9_v75if"]
+[ext_resource type="PackedScene" uid="uid://cjnokuhjudjvj" path="res://source/Game/Rzeczy/Lamp/Lamp.tscn" id="10_uatm0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5aeng"]
 albedo_color = Color(0.77, 0.7431783, 0.62369996, 1)
@@ -19,6 +21,11 @@ size = Vector2(78, 122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n5fc8"]
 size = Vector3(78, 0, 122)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v75if"]
+material = SubResource("StandardMaterial3D_5aeng")
+flip_faces = true
+size = Vector2(78, 122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sx23t"]
 size = Vector3(16, 0, 10)
@@ -118,16 +125,14 @@ shape = SubResource("BoxShape3D_n5fc8")
 
 [node name="Podloga2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
-visible = false
-collision_layer = 0
-collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Podloga2"]
-transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("PlaneMesh_cfofa")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+mesh = SubResource("PlaneMesh_v75if")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Podloga2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 shape = SubResource("BoxShape3D_n5fc8")
 
 [node name="Brama" type="StaticBody3D" parent="."]
@@ -256,6 +261,17 @@ mesh = SubResource("BoxMesh_5rcug")
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="PKr"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 4, 68)
 shape = SubResource("ConvexPolygonShape3D_v75if")
+
+[node name="Lamp13" type="Node3D" parent="PKr"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 3.9, 64)
+
+[node name="Sketchfab_Scene" parent="PKr/Lamp13" instance=ExtResource("1_jn0wv")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="PKr/Lamp13"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+spot_range = 30.0
+spot_angle = 90.0
 
 [node name="Szafka" parent="." instance=ExtResource("1_5aeng")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 0.05, 31)
@@ -991,3 +1007,41 @@ script = ExtResource("9_v75if")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BARS/StaticBody3D"]
 transform = Transform3D(1, 0, 1.7763568e-15, 0, 0.99999994, 0, 1.7195134e-12, 0, 1, 0.042877197, 0.8007203, -0.0854187)
 shape = SubResource("BoxShape3D_uatm0")
+
+[node name="Lamps" type="Node3D" parent="."]
+
+[node name="Lamp2" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 30.999996, 7.9, 13.999998)
+
+[node name="Lamp" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 31, 7.9, 44)
+
+[node name="Lamp3" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.9999962, 7.9, 13.999998)
+
+[node name="Lamp4" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 7.9, 44)
+
+[node name="Lamp5" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.000004, 7.9, 13.999998)
+
+[node name="Lamp7" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 30.999996, 7.9, -46)
+
+[node name="Lamp8" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 31, 7.9, -16)
+
+[node name="Lamp9" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.9999962, 7.9, -46)
+
+[node name="Lamp10" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 7.9, -16)
+
+[node name="Lamp11" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.000004, 7.9, -46)
+
+[node name="Lamp6" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29, 7.9, 44)
+
+[node name="Lamp12" parent="Lamps" instance=ExtResource("10_uatm0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29, 7.9, -16)

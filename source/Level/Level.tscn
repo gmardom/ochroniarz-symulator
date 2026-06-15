@@ -15,8 +15,11 @@ cell_height = 0.5
 agent_radius = 1.0
 
 [sub_resource type="Environment" id="Environment_o5qli"]
+tonemap_mode = 2
+tonemap_exposure = 2.0
 ssr_enabled = true
 ssao_enabled = true
+adjustment_enabled = true
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_tqhmp")
@@ -90,6 +93,7 @@ environment = SubResource("Environment_o5qli")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.7591464, 0.48587316, -0.43315592, -5.164152e-09, 0.6654519, 0.74644077, 0.65092, -0.5666578, 0.5051754, 0, 5, 0)
+visible = false
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_54pob")]
