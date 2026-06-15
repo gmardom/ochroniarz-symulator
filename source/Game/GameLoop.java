@@ -3,7 +3,6 @@ package Game;
 import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.api.Node;
-import godot.api.Input;
 
 @RegisterClass
 public class GameLoop extends Node
@@ -47,7 +46,7 @@ public class GameLoop extends Node
 			currentHour++;
 			if (hud != null) hud.updateClock(currentHour);
 
-			if (currentHour >= WORK_HOURS) {
+			if (currentHour >= 8 + WORK_HOURS) {
 				endShift();
 			}
 		}
@@ -55,13 +54,24 @@ public class GameLoop extends Node
 
 	public void startShift()
 	{
+		// Spróbuj znaleźć HUD jeśli jeszcze nie przypisany
+		if (hud == null) {
+			var playerNode = getNodeOrNull("/root/Game/Level/Player");
+			if (playerNode instanceof Node n) {
+				var hudNode = n.getNodeOrNull("HeadsUpDisplay");
+				if (hudNode instanceof Player.HeadsUpDisplay h) {
+					hud = h;
+				}
+			}
+		}
+
 		shiftActive = true;
-		currentHour = 0;
+		currentHour = 8;
 		timeAccumulator = 0f;
 		caughtThisShift = 0;
 		robbedThisShift = 0;
 		setProcess(true);
-		if (hud != null) hud.updateClock(0);
+		if (hud != null) hud.updateClock(currentHour);
 	}
 
 	public void endShift()
@@ -73,7 +83,10 @@ public class GameLoop extends Node
 		saveData.totalRobbed += robbedThisShift;
 		saveData.day++;
 
-		if (hud != null) hud.showShiftSummary(caughtThisShift, robbedThisShift);
+		// Powiadom GameManager o zakończeniu zmiany
+		if (GameManager.I() != null) {
+			GameManager.I().completeShift();
+		}
 	}
 
 	public void saveGame()
