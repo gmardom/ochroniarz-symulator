@@ -278,6 +278,13 @@ public class Player extends CharacterBody3D
 							GameLoop.I().saveGame();
 							if (hud != null) hud.stopInteraction();
 						}
+					} else if (name.equals("BARS")) {
+						if (GameLoop.I().isShiftActive() && isDragging) {
+							if (hud != null) hud.startInteraction("Zamknij ziuta");
+							if (Input.isActionJustPressed("interact")) {
+								isDragging = false;
+							}
+						}
 					}
 				}
 			} else if (collider instanceof Enemy enemy) {

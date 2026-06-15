@@ -4,10 +4,11 @@
 registeredName = GrateArea
 fqName = Game.Rzeczy.GrateArea.GrateArea
 relativeSourcePath = source/Game/Rzeczy/GrateArea/GrateArea.java
-baseType = Area3D
+baseType = StaticBody3D
 supertypes = [
-    godot.api.Area3D,
+	godot.api.StaticBody3D,
 	Game.Interactable,
+	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
 	godot.api.Node,
@@ -19,11 +20,11 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-    
+	
 ]
 properties = [
-    imprison_offset
+	imprison_offset
 ]
 functions = [
-    _ready
+	_ready
 ]

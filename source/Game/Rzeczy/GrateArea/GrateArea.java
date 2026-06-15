@@ -8,7 +8,7 @@ import godot.core.*;
 import static godot.global.GD.*;
 
 @RegisterClass
-public class GrateArea extends Area3D implements Interactable
+public class GrateArea extends StaticBody3D implements Interactable
 {
 	// Where the enemy is placed relative to this area's origin
 	@RegisterProperty @Export public Vector3 imprisonOffset = new Vector3(0, 0, 2);
@@ -22,6 +22,7 @@ public class GrateArea extends Area3D implements Interactable
 	@Override
 	public void interact(Player player)
 	{
-		print("Chój");
+		print("Zamknięto ziuta");
+		player.dropDeliver();
 	}
 }
